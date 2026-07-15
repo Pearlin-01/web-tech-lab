@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grand Events</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
+            color: #f0f0f0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(14px);
+            border-radius: 40px;
+            padding: 30px 35px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 40px 80px -16px rgba(0, 0, 0, 0.7);
+        }
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            border-radius: 28px;
+            margin-bottom: 30px;
+            color: #1a1a2e;
+            box-shadow: 0 20px 50px -10px rgba(247, 151, 30, 0.45);
+        }
+        .header h1 {
+            font-size: 3.2rem;
+            letter-spacing: 2px;
+        }
+        .header p {
+            font-size: 1.2rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        .badge-hero {
+            display: inline-block;
+            background: rgba(26, 26, 46, 0.15);
+            padding: 5px 20px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-top: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 25px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 14px 30px;
+            border-radius: 60px;
+            margin: 16px 0 30px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 4px 12px;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+        .nav a:hover {
+            color: #ffd93d;
+            background: rgba(255, 217, 61, 0.08);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            border-left: 8px solid #f7971e;
+            padding-left: 18px;
+            margin: 40px 0 20px;
+        }
+        .section-title .hl {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 24px 28px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+        }
+        .card p {
+            color: #cfcfcf;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+        .card strong {
+            color: #ffd93d;
+        }
+        .img-hero {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 12px 0 8px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+        }
+        .img-gallery {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 16px;
+            transition: 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .img-gallery:hover {
+            transform: scale(1.04);
+            box-shadow: 0 20px 48px rgba(247, 151, 30, 0.2);
+            border-color: rgba(247, 151, 30, 0.3);
+        }
+        .img-clickable {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 18px;
+            transition: 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }
+        .img-clickable:hover {
+            transform: scale(1.04);
+            box-shadow: 0 24px 56px rgba(247, 151, 30, 0.2);
+            border-color: #f7971e;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin: 16px 0 10px;
+        }
+        .gallery-grid a {
+            display: block;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .gallery-grid a:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 48px rgba(247, 151, 30, 0.15);
+        }
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+            margin: 12px 0 8px;
+        }
+        .styled-table thead {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+        }
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 16px;
+            text-align: left;
+        }
+        .styled-table td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e8e8e8;
+        }
+        .styled-table tbody tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .styled-table tbody tr:hover {
+            background: rgba(247, 151, 30, 0.08);
+        }
+        .badge {
+            padding: 3px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .badge.green {
+            background: #00b894;
+            color: #fff;
+        }
+        .badge.blue {
+            background: #0984e3;
+            color: #fff;
+        }
+        .badge.orange {
+            background: #fdcb6e;
+            color: #1a1a2e;
+        }
+        .badge.pink {
+            background: #e84393;
+            color: #fff;
+        }
+        .list-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 10px 0 6px;
+        }
+        .list-box {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 18px 22px;
+            border-radius: 18px;
+            border-left: 6px solid #f7971e;
+        }
+        .list-box.alt {
+            border-left-color: #00cec9;
+        }
+        .list-box h3 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .list-box ul,
+        .list-box ol {
+            padding-left: 24px;
+            color: #d0d0d0;
+        }
+        .list-box li {
+            margin: 4px 0;
+        }
+        .list-box li ul,
+        .list-box li ol {
+            color: #b8b8b8;
+        }
+        dl {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 18px 24px;
+            border-radius: 18px;
+            border-left: 6px solid #ffd93d;
+            margin: 10px 0 6px;
+        }
+        dt {
+            font-weight: 700;
+            color: #ffd93d;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        dt:first-of-type {
+            margin-top: 0;
+        }
+        dd {
+            margin-left: 24px;
+            color: #c8c8c8;
+            padding-bottom: 4px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin: 14px 0 8px;
+        }
+        .contact-grid a {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 18px;
+            border-radius: 60px;
+            text-decoration: none;
+            color: #f0f0f0;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: 0.3s;
+        }
+        .contact-grid a:hover {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(247, 151, 30, 0.3);
+        }
+        .footer {
+            text-align: center;
+            padding: 24px 10px 10px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+        .footer strong {
+            color: #ffd93d;
+        }
+        .footer a {
+            color: #f7971e;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .footer a:hover {
+            color: #ffd93d;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            .list-container {
+                grid-template-columns: 1fr;
+            }
+            .nav {
+                gap: 6px 12px;
+                padding: 10px 16px;
+            }
+            .nav a {
+                font-size: 0.85rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <header class="header">
+            <h1>✨ Grand Events</h1>
+            <p>🎯 Crafting Unforgettable Experiences</p>
+            <div class="badge-hero">🌟 Award-Winning Event Planners</div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="#about">🏆 About</a>
+            <a href="#services">📋 Services</a>
+            <a href="#events">📅 Events</a>
+            <a href="#gallery">🖼️ Gallery</a>
+            <a href="#contact">📞 Contact</a>
+            <a href="#top">⬆ Top</a>
+        </nav>
+
+        <!-- About -->
+        <section id="about">
+            <h2 class="section-title"><span class="hl">🏆 About Us</span></h2>
+            <div class="card">
+                <p><strong>Grand Events</strong> is a premier event management company dedicated to turning your vision into reality. From intimate gatherings to large-scale corporate conferences, we handle every detail with creativity and precision.</p>
+                <p>With over a <strong>decade of experience</strong>, our team brings passion, innovation, and a personal touch to every project.</p>
+                <!-- Hero image with seed-based URL -->
+                <img src="Screenshot 2026-07-15 212600.png" alt="Grand event setup" class="img-hero" />
+                <p>🌐 Learn more on our <a href="https://www.eventplanner.com" target="_blank" style="color:#ffd93d; font-weight:700;">Industry Blog</a> — read tips from top planners.</p>
+            </div>
+        </section>
+
+        
+        <section id="featured">
+            <h2 class="section-title"><span class="hl">🌸 Featured Decorations</span></h2>
+            <div class="card">
+                <div class="gallery-grid">
+                    <img src="Screenshot 2026-07-15 212600.png" class="img-gallery" alt="">
+                    <img src="Screenshot 2026-07-15 212622.png" class="img-gallery" alt="">
+                    <img src="Screenshot 2026-07-15 212753.png" class="img-gallery" alt="">
+                    <img src="Screenshot 2026-07-15 212809.png" class="img-gallery" alt="">
+                    <img src="Screenshot 2026-07-15 212820.png" class="img-gallery" alt="">
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Services Table -->
+        <section id="services">
+            <h2 class="section-title"><span class="hl">📋 Our Services</span></h2>
+            <div class="card">
+                <p>We offer a complete range of event services tailored to your needs.</p>
+                <table class="styled-table">
+                    <thead><tr><th>Service</th><th>Description</th><th>Price (₹)</th><th>Status</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>🎯 Event Planning</strong></td><td>Full-service planning &amp; coordination</td><td>25,000</td><td><span class="badge green">Available</span></td></tr>
+                        <tr><td><strong>🎨 Decor &amp; Design</strong></td><td>Thematic decor, lighting</td><td>18,000</td><td><span class="badge blue">Popular</span></td></tr>
+                        <tr><td><strong>🍽️ Catering</strong></td><td>Custom menus, live stations</td><td>22,000</td><td><span class="badge orange">On Request</span></td></tr>
+                        <tr><td><strong>📸 Photography &amp; Video</strong></td><td>Professional coverage</td><td>15,000</td><td><span class="badge green">Available</span></td></tr>
+                        <tr><td><strong>🎤 Entertainment</strong></td><td>DJ, live bands, performers</td><td>20,000</td><td><span class="badge pink">Trending</span></td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.85rem; color:#a0a0a0;">* Prices indicative, may vary.</p>
+            </div>
+        </section>
+
+        <!-- Events with nested lists -->
+        <section id="events">
+            <h2 class="section-title"><span class="hl">📅 Upcoming Events</span></h2>
+            <div class="card">
+                <div class="list-container">
+                    <div class="list-box">
+                        <h3>📌 Corporate Events</h3>
+                        <ol>
+                            <li>Annual Conference 2026
+                                <ol><li>Keynote sessions</li><li>Panel discussions</li><li>Networking dinner</li></ol>
+                            </li>
+                            <li>Product Launch – "Nova X"
+                                <ol><li>Live demo</li><li>Media interaction</li><li>VIP cocktail hour</li></ol>
+                            </li>
+                            <li>Team Offsite – Goa
+                                <ol><li>Workshops</li><li>Beach activities</li><li>Closing gala</li></ol>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="list-box alt">
+                        <h3>🎉 Social Celebrations</h3>
+                        <ul>
+                            <li>Wedding – Sharma &amp; Patel
+                                <ul><li>Mehendi ceremony</li><li>Wedding pheras</li><li>Reception dinner</li></ul>
+                            </li>
+                            <li>Birthday – Aarav's 10th
+                                <ul><li>Magic show</li><li>Bouncy castle</li><li>Return gifts</li></ul>
+                            </li>
+                            <li>Anniversary – Gupta's 25th
+                                <ul><li>Renewal vows</li><li>Family dinner</li><li>Photo slideshow</li></ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 style="color:#ffd93d; margin-top:20px;">📖 Event Glossary</h3>
+                <dl>
+                    <dt>🎯 Bespoke Planning</dt><dd>Fully customized event design.</dd>
+                    <dt>🎭 Thematic Curation</dt><dd>Cohesive visual and experiential theme.</dd>
+                    <dt>🤝 Vendor Management</dt><dd>Coordinating all third-party partners.</dd>
+                    <dt>📋 Day-of Coordination</dt><dd>On-site management for smooth execution.</dd>
+                </dl>
+            </div>
+        </section>
+
+        <!-- Gallery with clickable images -->
+        <section id="gallery">
+            <h2 class="section-title"><span class="hl">🖼️ Event Gallery</span></h2>
+            <div class="card">
+                <p>Click any image to view our portfolio.</p>
+                <div class="gallery-grid">
+<a href="Screenshot 2026-07-15 212600.png" target="_blank"><img src="Screenshot 2026-07-15 212600.png" class="img-gallery" alt="Wedding Stage"></a>
+<a href="Screenshot 2026-07-15 212622.png" target="_blank"><img src="Screenshot 2026-07-15 212622.png" class="img-gallery" alt="Reception"></a>
+<a href="Screenshot 2026-07-15 212753.png" target="_blank"><img src="Screenshot 2026-07-15 212753.png" class="img-gallery" alt="Outdoor Wedding"></a>
+<a href="Screenshot 2026-07-15 212809.png" target="_blank"><img src="Screenshot 2026-07-15 212809.png" class="img-gallery" alt="Birthday"></a>
+<a href="Screenshot 2026-07-15 212820.png" target="_blank"><img src="Screenshot 2026-07-15 212820.png" class="img-gallery" alt="Balloon Decor"></a>
+</div>
+                <div style="text-align:center; margin-top:18px;">
+                    <a href="https://www.eventplanner.com/portfolio" target="_blank">
+                        <img src="Screenshot 2026-07-15 212600.png" alt="Grand setup" class="img-clickable" />
+                    </a>
+                    <p style="color:#a0a0a0; margin-top:6px;">✨ Click above to explore full portfolio</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact with mailto and tel -->
+        <section id="contact">
+            <h2 class="section-title"><span class="hl">📞 Get In Touch</span></h2>
+            <div class="card">
+                <p>Have a vision? Reach out and let's start planning.</p>
+                <div class="contact-grid">
+                    <a href="mailto:hello@grandevents.com">📧 hello@grandevents.com</a>
+                    <a href="tel:+919876543210">📞 +91 98765 43210</a>
+                    <a href="tel:+919876543210">💬 WhatsApp</a>
+                    <a href="https://instagram.com" target="_blank">📸 Instagram</a>
+                </div>
+                <p style="margin-top:14px; color:#b8b8b8;"><strong style="color:#ffd93d;">📍 Office:</strong> 42, Grand Plaza, New Delhi</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p><strong>© 2026 Grand Events</strong> &nbsp;|&nbsp; Crafting memories &nbsp;|&nbsp; <a href="#top">⬆ Back to Top</a></p>
+            <p style="font-size:0.8rem; color:#888;">✦ Designed with ❤️ using HTML5 &amp; CSS</p>
+        </footer>
+
+    </div>
+</body>
+</html>
