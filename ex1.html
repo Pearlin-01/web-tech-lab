@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EventSphere – Event Management</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+    <style>
+        /* ── Reset & Base ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(145deg, #e3edfa 0%, #b8d4f0 35%, #7bb0d9 70%, #3f7eb6 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #1a2a44;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        /* ── Animated Blue Gradient Overlay ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #dce9f9 0%, #a8c8ed 25%, #6ea2d4 50%, #3a7bb5 75%, #1a4a7a 100%);
+            background-size: 400% 400%;
+            animation: blueShift 28s ease infinite;
+        }
+
+        @keyframes blueShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #d0e2f5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a6a9e;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1a4a7a;
+        }
+
+        /* ── Typography ── */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        h1 {
+            font-size: 2.6rem;
+        }
+        h2 {
+            font-size: 2rem;
+            color: #0d2b4e;
+        }
+        h3 {
+            font-size: 1.3rem;
+            color: #1a4a7a;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #1e334f;
+        }
+
+        a {
+            color: #1a5a8a;
+            text-decoration: none;
+            transition: color 0.3s, background 0.3s;
+        }
+        a:hover {
+            color: #0d3b6a;
+            text-decoration: underline;
+        }
+
+        /* ── Glass Card ── */
+        .glass {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            box-shadow: 0 18px 40px rgba(10, 30, 60, 0.15), 0 6px 18px rgba(0, 20, 50, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+        }
+
+        .glass:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 24px 50px rgba(10, 30, 60, 0.2);
+        }
+
+        /* ── Header ── */
+        header {
+            background: linear-gradient(135deg, #0a2647, #1a4a7a, #2a6a9e);
+            color: #fff;
+            text-align: center;
+            padding: 48px 30px 36px;
+            border-bottom: 4px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: -60%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 2.8rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.85);
+            font-style: italic;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Navigation ── */
+        nav {
+            background: rgba(10, 38, 71, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 12px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 10px 22px;
+            margin: 0 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 40px;
+            color: #e0edfa;
+            background: transparent;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            transform: translateY(-1px);
+            text-decoration: none;
+        }
+
+        nav a:active {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(0.96);
+        }
+
+        /* ── Forms Container ── */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 50px 30px;
+            max-width: 1200px;
+            margin: 30px auto 20px;
+        }
+
+        .form-container>div {
+            flex: 1 1 300px;
+            max-width: 380px;
+            padding: 32px 28px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 20px 48px rgba(10, 30, 60, 0.12);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .form-container>div:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 28px 56px rgba(10, 30, 60, 0.18);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 1.6rem;
+            color: #0a2647;
+        }
+
+        .form-container label {
+            display: block;
+            margin-top: 14px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1a3a5a;
+        }
+
+        .form-container input[type="email"],
+        .form-container input[type="password"],
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            margin-top: 4px;
+            border: 1px solid rgba(60, 120, 180, 0.25);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-container input:focus {
+            outline: none;
+            border-color: #2a6a9e;
+            box-shadow: 0 0 0 4px rgba(42, 106, 158, 0.15);
+        }
+
+        /* ── Sections ── */
+        .section {
+            margin: 24px auto;
+            padding: 32px 38px;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 16px 40px rgba(10, 30, 60, 0.08);
+            transition: transform 0.25s, box-shadow 0.3s;
+        }
+
+        .section:hover {
+            box-shadow: 0 20px 50px rgba(10, 30, 60, 0.12);
+        }
+
+        .section h2 {
+            margin-top: 0;
+            margin-bottom: 14px;
+            border-bottom: 3px solid rgba(42, 106, 158, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .section hr {
+            border: none;
+            border-top: 2px solid rgba(42, 106, 158, 0.15);
+            margin: 12px 0 18px;
+        }
+
+        .section p {
+            margin: 16px 0;
+        }
+
+        /* ── Hero Image ── */
+        .hero-img {
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 700px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 12px 28px rgba(10, 30, 60, 0.12);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .hero-img:hover {
+            transform: scale(1.01);
+            box-shadow: 0 18px 40px rgba(10, 30, 60, 0.18);
+        }
+
+        /* ── Description List ── */
+        dl {
+            margin: 12px 0;
+        }
+        dt {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #0d2b4e;
+            margin-top: 14px;
+        }
+        dd {
+            margin-left: 22px;
+            font-style: italic;
+            color: #1e3a5a;
+        }
+
+        /* ── Lists ── */
+        ol,
+        ul {
+            margin: 10px 0 10px 24px;
+            line-height: 1.9;
+        }
+        ol ol {
+            list-style-type: lower-alpha;
+        }
+        ul ul {
+            list-style-type: circle;
+        }
+
+        /* ── Table ── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid rgba(42, 106, 158, 0.2);
+        }
+
+        th {
+            background: linear-gradient(135deg, #0a2647, #1a4a7a);
+            color: #fff;
+            padding: 14px 18px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            text-align: center;
+            color: #1a2a44;
+        }
+
+        tr:hover td {
+            background: rgba(42, 106, 158, 0.08);
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: linear-gradient(135deg, #0a1a30, #0d2b4e, #1a4a7a);
+            color: #d0e2f5;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 2px solid rgba(255, 255, 255, 0.06);
+        }
+
+        footer p {
+            margin: 6px 0;
+            color: #b8d4f0;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #8abce6;
+            font-weight: 500;
+        }
+        footer a:hover {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        /* ── Registration Header ── */
+        .reg-header {
+            background: linear-gradient(135deg, #0a2647, #1a4a7a, #2a6a9e);
+            color: #fff;
+            padding: 32px 28px;
+            text-align: center;
+            max-width: 1100px;
+            margin: 30px auto 20px;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 16px 40px rgba(10, 30, 60, 0.15);
+        }
+
+        .reg-header h1 {
+            margin: 0 0 6px;
+            font-size: 2.2rem;
+        }
+        .reg-header p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+        }
+
+        /* ── Form Elements ── */
+        label {
+            display: block;
+            margin-top: 16px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #0d2b4e;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        input[type="url"],
+        input[type="search"],
+        input[type="time"],
+        input[type="week"],
+        input[type="month"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            margin-top: 4px;
+            border: 1px solid rgba(60, 120, 180, 0.2);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2a6a9e;
+            box-shadow: 0 0 0 4px rgba(42, 106, 158, 0.12);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 6px;
+            margin-top: 8px;
+            transform: scale(1.15);
+            accent-color: #1a4a7a;
+        }
+
+        .radio-group,
+        .check-group {
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .radio-group label,
+        .check-group label {
+            font-weight: 400;
+            margin-top: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: #1a2a44;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        progress {
+            width: 100%;
+            height: 20px;
+            margin-top: 6px;
+            border-radius: 20px;
+            accent-color: #1a4a7a;
+            background: rgba(42, 106, 158, 0.15);
+            overflow: hidden;
+        }
+
+        progress::-webkit-progress-bar {
+            background: rgba(42, 106, 158, 0.12);
+            border-radius: 20px;
+        }
+
+        progress::-webkit-progress-value {
+            background: linear-gradient(90deg, #2a6a9e, #6ba3d6);
+            border-radius: 20px;
+        }
+
+        progress::-moz-progress-bar {
+            background: linear-gradient(90deg, #2a6a9e, #6ba3d6);
+            border-radius: 20px;
+        }
+
+        fieldset {
+            border: 2px solid rgba(42, 106, 158, 0.2);
+            border-radius: 18px;
+            padding: 24px 28px;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+        }
+
+        legend {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0a2647;
+            padding: 0 12px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #0a2647, #1a4a7a);
+            color: #fff;
+            border: none;
+            padding: 13px 36px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.3s, background 0.3s;
+            margin-top: 18px;
+            margin-right: 10px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 18px rgba(10, 38, 71, 0.2);
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #1a4a7a, #2a6a9e);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(10, 38, 71, 0.25);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.97);
+        }
+
+        .btn-reset {
+            background: rgba(200, 215, 235, 0.6);
+            backdrop-filter: blur(4px);
+            color: #1a2a44;
+            border: 1px solid rgba(42, 106, 158, 0.15);
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 18px;
+        }
+
+        .btn-reset:hover {
+            background: rgba(180, 200, 225, 0.7);
+            transform: translateY(-2px);
+        }
+
+        .btn-reset:active {
+            transform: scale(0.97);
+        }
+
+        /* ── Audio & Video ── */
+        audio,
+        video {
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        iframe {
+            border: none;
+            border-radius: 18px;
+            margin-top: 10px;
+            box-shadow: 0 8px 24px rgba(10, 30, 60, 0.08);
+        }
+
+        .banner-img {
+            display: block;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 18px;
+            margin: 16px auto;
+            box-shadow: 0 12px 28px rgba(10, 30, 60, 0.1);
+            transition: transform 0.4s;
+        }
+
+        .banner-img:hover {
+            transform: scale(1.01);
+        }
+
+        /* ── Gallery ── */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .gallery img {
+            width: 260px;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(10, 30, 60, 0.08);
+            transition: transform 0.35s, box-shadow 0.35s;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .gallery img:hover {
+            transform: scale(1.04) rotate(-0.5deg);
+            box-shadow: 0 14px 32px rgba(10, 30, 60, 0.16);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .form-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 16px;
+            }
+            .form-container>div {
+                max-width: 100%;
+                width: 100%;
+            }
+            .section {
+                padding: 22px 18px;
+                margin: 16px 12px;
+            }
+            .reg-header {
+                margin: 16px 12px;
+                padding: 22px 16px;
+            }
+            .reg-header h1 {
+                font-size: 1.6rem;
+            }
+            nav a {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+                margin: 0 4px;
+            }
+            .gallery img {
+                width: 160px;
+                height: 110px;
+            }
+            .hero-img {
+                height: 170px;
+            }
+            fieldset {
+                padding: 18px 14px;
+            }
+            .radio-group,
+            .check-group {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+            nav a {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+                margin: 0 2px;
+            }
+            .btn-submit,
+            .btn-reset {
+                width: 100%;
+                margin-right: 0;
+                text-align: center;
+            }
+            .gallery img {
+                width: 130px;
+                height: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ════════════════════════════════════════
+    PAGE 1 — Main Website
+    ════════════════════════════════════════ -->
+
+    <!-- Header -->
+    <header id="top">
+        <h1>EventSphere</h1>
+        <p>Creating Memorable Events with Style &amp; Perfection</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#packages">Packages</a>
+        <a href="#contact">Contact</a>
+        <a href="#registration">Register</a>
+    </nav>
+
+    <!-- Sign In / Sign Up -->
+    <div class="form-container">
+
+        <div>
+            <h2>Welcome Back</h2>
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com" />
+            <label>Password</label>
+            <input type="password" placeholder="Enter password" />
+            <br /><br />
+            <input type="submit" value="Sign In" class="btn-submit" style="width:100%;" />
+        </div>
+
+        <div>
+            <h2>Create Account</h2>
+            <label>Full Name</label>
+            <input type="text" placeholder="Your name" />
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com" />
+            <label>Password</label>
+            <input type="password" placeholder="Create a password" />
+            <br /><br />
+            <input type="submit" value="Create Account" class="btn-submit" style="width:100%;" />
+        </div>
+
+    </div>
+
+    <!-- About -->
+    <div class="section" id="about">
+        <h2>About Us</h2>
+        <p>EventSphere is a professional event management company that orchestrates weddings, corporate meetings, birthday parties, concerts, and college festivals with elegance and precision.</p>
+        <p>We bring together creative planning, stunning decor, curated catering, professional photography, and top-tier entertainment to craft experiences that linger in memory.</p>
+
+        <p><a href="https://www.eventbrite.com" target="_blank" rel="noopener noreferrer">→ Explore events on Eventbrite</a></p>
+        <p><a href="#packages">→ View our event packages</a></p>
+        <p><a href="#top">↑ Back to top</a></p>
+
+        <a href="https://unsplash.com/s/photos/event" target="_blank" rel="noopener noreferrer">
+            <img class="hero-img" src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=700" alt="Grand ballroom event setup" />
+        </a>
+    </div>
+
+    <!-- Services -->
+    <div class="section" id="services">
+        <h2>Our Services</h2>
+        <hr />
+
+        <h3>What We Offer</h3>
+        <dl>
+            <dt>Wedding Planning</dt>
+            <dd>Elegant decor, coordinated timelines, and attentive management for your dream wedding.</dd>
+            <dt>Corporate Events</dt>
+            <dd>Professional conferences, seminars, and branded meetings that leave a lasting impression.</dd>
+            <dt>Birthday Parties</dt>
+            <dd>Themed celebrations with custom cakes, entertainment, and joyful surprises.</dd>
+        </dl>
+
+        <h3>Event Planning Process</h3>
+        <ol>
+            <li>Planning
+                <ol>
+                    <li>Venue Selection &amp; Booking</li>
+                    <li>Budget &amp; Timeline Preparation</li>
+                </ol>
+            </li>
+            <li>Execution
+                <ol>
+                    <li>Decoration &amp; Setup</li>
+                    <li>On‑site Coordination &amp; Management</li>
+                </ol>
+            </li>
+        </ol>
+
+        <h3>What's Included</h3>
+        <ul>
+            <li>Entertainment
+                <ul>
+                    <li>Professional DJ</li>
+                    <li>Live Band</li>
+                </ul>
+            </li>
+            <li>Catering
+                <ul>
+                    <li>Vegetarian Menu</li>
+                    <li>Non‑Vegetarian Menu</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Packages -->
+    <div class="section" id="packages">
+        <h2>Event Packages</h2>
+        <hr />
+        <table>
+            <tr>
+                <th>Package</th>
+                <th>Suitable For</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td>Silver</td>
+                <td>Birthday Parties</td>
+                <td>₹20,000</td>
+            </tr>
+            <tr>
+                <td>Gold</td>
+                <td>Weddings</td>
+                <td>₹75,000</td>
+            </tr>
+            <tr>
+                <td>Platinum</td>
+                <td>Corporate Events</td>
+                <td>₹1,50,000</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Contact -->
+    <div class="section" id="contact">
+        <h2>Contact Us</h2>
+        <hr />
+        <p>📧 Email: <a href="mailto:eventsphere@gmail.com">eventsphere@gmail.com</a></p>
+        <p>📞 Phone: <a href="tel:+919876543210">+91 98765 43210</a></p>
+        <p>📍 Location: Coimbatore, Tamil Nadu</p>
+    </div>
+
+    <!-- ════════════════════════════════════════
+    PAGE 2 — Registration Portal
+    ════════════════════════════════════════ -->
+
+    <!-- Registration Header -->
+    <div class="reg-header" id="registration">
+        <h1>EventSphere Registration Portal</h1>
+        <p>Secure your spot at our upcoming events</p>
+    </div>
+
+    <!-- About Registration -->
+    <div class="section">
+        <h2>About Registration</h2>
+        <p style="margin:0 0 12px; font-style:normal;">Complete the form below to register for your preferred event. Choose your package and upload the necessary documents.</p>
+        <img class="banner-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600" alt="Event celebration banner" />
+    </div>
+
+    <!-- Registration Form -->
+    <div class="section">
+        <h2>Registration Form</h2>
+        <hr />
+        <form action="#" method="get" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Participant Details</legend>
+
+                <label for="fname">Full Name *</label>
+                <input type="text" id="fname" name="fname" placeholder="Enter your full name" required />
+
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+                <label for="pwd">Password</label>
+                <input type="password" id="pwd" name="pwd" placeholder="Create a password" />
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" />
+
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" />
+
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="1" max="120" placeholder="Enter your age" />
+
+                <label>Gender</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="male" /> Male</label>
+                    <label><input type="radio" name="gender" value="female" /> Female</label>
+                    <label><input type="radio" name="gender" value="other" /> Other</label>
+                </div>
+
+                <label>Interests</label>
+                <div class="check-group">
+                    <label><input type="checkbox" name="interest" value="music" /> Music</label>
+                    <label><input type="checkbox" name="interest" value="dance" /> Dance</label>
+                    <label><input type="checkbox" name="interest" value="sports" /> Sports</label>
+                </div>
+
+                <label for="event">Select Event</label>
+                <select id="event" name="event">
+                    <option>— Choose an Event —</option>
+                    <option>Wedding Expo</option>
+                    <option>Corporate Meet</option>
+                    <option>Birthday Carnival</option>
+                    <option>College Fest</option>
+                </select>
+
+                <label for="idproof">Upload ID Proof</label>
+                <input type="file" id="idproof" name="idproof" />
+
+                <label for="website">Your Website (optional)</label>
+                <input type="url" id="website" name="website" placeholder="https://yoursite.com" />
+
+                <label for="search">Search Event</label>
+                <input type="search" id="search" name="search" placeholder="Type to search…" />
+
+                <label for="ptime">Preferred Time</label>
+                <input type="time" id="ptime" name="ptime" />
+
+                <label for="pweek">Preferred Week</label>
+                <input type="week" id="pweek" name="pweek" />
+
+                <label for="pmonth">Preferred Month</label>
+                <input type="month" id="pmonth" name="pmonth" />
+
+                <label for="feedback">Feedback / Special Requests</label>
+                <textarea id="feedback" name="feedback" rows="5" placeholder="Write your message here…"></textarea>
+
+                <label>Booking Progress</label>
+                <progress value="70" max="100"></progress>
+                <p style="margin:4px 0 0; font-size:0.85rem; color:#1a4a7a;">70% complete</p>
+
+                <br />
+                <input type="submit" value="Register Now" class="btn-submit" />
+                <input type="reset" value="Clear Form" class="btn-reset" />
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- Available Packages Table -->
+    <div class="section">
+        <h2>Available Packages</h2>
+        <hr />
+        <table>
+            <tr>
+                <th>Package</th>
+                <th>Duration</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td>Silver</td>
+                <td>1 Day</td>
+                <td>₹10,000</td>
+            </tr>
+            <tr>
+                <td>Gold</td>
+                <td>2 Days</td>
+                <td>₹25,000</td>
+            </tr>
+            <tr>
+                <td>Platinum</td>
+                <td>3 Days</td>
+                <td>₹50,000</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Audio -->
+    <div class="section">
+        <h2>Background Music</h2>
+        <p style="font-style:normal; margin:0 0 8px;">Listen to our event highlight track:</p>
+        <audio controls>
+            <source src="1.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <!-- Video -->
+    <div class="section">
+        <h2>Promotional Video</h2>
+        <p style="font-style:normal; margin:0 0 8px;">Watch our event highlights:</p>
+        <video controls style="max-width:700px; width:100%; border-radius:16px;">
+            <source src="1.mp4" type="video/mp4" />
+            Your browser does not support the video element.
+        </video>
+    </div>
+
+    <!-- Gallery -->
+    <div class="section">
+        <h2>Event Inspiration Gallery</h2>
+        <p style="font-style:normal; margin:0 0 14px;">Reference images to spark your vision:</p>
+        <div class="gallery">
+            <img src="Screenshot 2026-07-15 212600.png" alt="Event decor 1" />
+            <img src="Screenshot 2026-07-15 212622.png" alt="Event decor 2" />
+            <img src="Screenshot 2026-07-15 212753.png" alt="Event decor 3" />
+            <img src="Screenshot 2026-07-15 212809.png" alt="Event decor 4" />
+            <img src="Screenshot 2026-07-15 212820.png" alt="Event decor 5" />
+        </div>
+    </div>
+
+    <!-- Map -->
+    <div class="section">
+        <h2>Our Location</h2>
+        <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125322.17673946395!2d76.89505615!3d11.0016865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859af2f971cb5%3A0x2fc1c81e183ed282!2sCoimbatore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1691000000000!5m2!1sen!2sin"
+        width="100%"
+        height="350"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2026 EventSphere — Crafted with &hearts; using HTML5 &amp; CSS3</p>
+    <p><a href="#top">↑ Go to Top</a></p>
+</footer>
+
+</body>
+</html>
