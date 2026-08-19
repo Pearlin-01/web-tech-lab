@@ -557,7 +557,6 @@
             padding: 0 12px;
             font-family: 'Playfair Display', serif;
         }
-
         .btn-submit {
             background: linear-gradient(135deg, #0a2647, #1a4a7a);
             color: #fff;
@@ -573,17 +572,14 @@
             letter-spacing: 0.5px;
             box-shadow: 0 6px 18px rgba(10, 38, 71, 0.2);
         }
-
         .btn-submit:hover {
             background: linear-gradient(135deg, #1a4a7a, #2a6a9e);
             transform: translateY(-2px);
             box-shadow: 0 10px 28px rgba(10, 38, 71, 0.25);
         }
-
         .btn-submit:active {
             transform: scale(0.97);
         }
-
         .btn-reset {
             background: rgba(200, 215, 235, 0.6);
             backdrop-filter: blur(4px);
@@ -597,16 +593,13 @@
             transition: background 0.3s, transform 0.2s;
             margin-top: 18px;
         }
-
         .btn-reset:hover {
             background: rgba(180, 200, 225, 0.7);
             transform: translateY(-2px);
         }
-
         .btn-reset:active {
             transform: scale(0.97);
         }
-
         /* ── Audio & Video ── */
         audio,
         video {
@@ -615,14 +608,12 @@
             border-radius: 16px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
         }
-
         iframe {
             border: none;
             border-radius: 18px;
             margin-top: 10px;
             box-shadow: 0 8px 24px rgba(10, 30, 60, 0.08);
         }
-
         .banner-img {
             display: block;
             width: 100%;
@@ -632,11 +623,9 @@
             box-shadow: 0 12px 28px rgba(10, 30, 60, 0.1);
             transition: transform 0.4s;
         }
-
         .banner-img:hover {
             transform: scale(1.01);
         }
-
         /* ── Gallery ── */
         .gallery {
             display: flex;
@@ -645,7 +634,6 @@
             justify-content: center;
             margin-top: 12px;
         }
-
         .gallery img {
             width: 260px;
             height: 170px;
@@ -655,12 +643,10 @@
             transition: transform 0.35s, box-shadow 0.35s;
             border: 2px solid rgba(255, 255, 255, 0.4);
         }
-
         .gallery img:hover {
             transform: scale(1.04) rotate(-0.5deg);
             box-shadow: 0 14px 32px rgba(10, 30, 60, 0.16);
         }
-
         /* ── Responsive ── */
         @media (max-width: 768px) {
             header h1 {
@@ -706,7 +692,6 @@
                 gap: 10px;
             }
         }
-
         @media (max-width: 480px) {
             header h1 {
                 font-size: 1.6rem;
@@ -729,18 +714,16 @@
         }
     </style>
 </head>
+<script src="event-management-dom.js"></script>
 <body>
-
     <!-- ════════════════════════════════════════
     PAGE 1 — Main Website
     ════════════════════════════════════════ -->
-
     <!-- Header -->
     <header id="top">
         <h1>EventSphere</h1>
         <p>Creating Memorable Events with Style &amp; Perfection</p>
     </header>
-
     <!-- Navigation -->
     <nav>
         <a href="#about">About</a>
@@ -749,10 +732,8 @@
         <a href="#contact">Contact</a>
         <a href="#registration">Register</a>
     </nav>
-
     <!-- Sign In / Sign Up -->
     <div class="form-container">
-
         <div>
             <h2>Welcome Back</h2>
             <label>Email</label>
@@ -762,7 +743,6 @@
             <br /><br />
             <input type="submit" value="Sign In" class="btn-submit" style="width:100%;" />
         </div>
-
         <div>
             <h2>Create Account</h2>
             <label>Full Name</label>
@@ -774,29 +754,23 @@
             <br /><br />
             <input type="submit" value="Create Account" class="btn-submit" style="width:100%;" />
         </div>
-
     </div>
-
     <!-- About -->
     <div class="section" id="about">
         <h2>About Us</h2>
         <p>EventSphere is a professional event management company that orchestrates weddings, corporate meetings, birthday parties, concerts, and college festivals with elegance and precision.</p>
         <p>We bring together creative planning, stunning decor, curated catering, professional photography, and top-tier entertainment to craft experiences that linger in memory.</p>
-
         <p><a href="https://www.eventbrite.com" target="_blank" rel="noopener noreferrer">→ Explore events on Eventbrite</a></p>
         <p><a href="#packages">→ View our event packages</a></p>
         <p><a href="#top">↑ Back to top</a></p>
-
         <a href="https://unsplash.com/s/photos/event" target="_blank" rel="noopener noreferrer">
             <img class="hero-img" src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=700" alt="Grand ballroom event setup" />
         </a>
     </div>
-
     <!-- Services -->
     <div class="section" id="services">
         <h2>Our Services</h2>
         <hr />
-
         <h3>What We Offer</h3>
         <dl>
             <dt>Wedding Planning</dt>
@@ -806,7 +780,6 @@
             <dt>Birthday Parties</dt>
             <dd>Themed celebrations with custom cakes, entertainment, and joyful surprises.</dd>
         </dl>
-
         <h3>Event Planning Process</h3>
         <ol>
             <li>Planning
@@ -822,7 +795,6 @@
                 </ol>
             </li>
         </ol>
-
         <h3>What's Included</h3>
         <ul>
             <li>Entertainment
@@ -839,7 +811,6 @@
             </li>
         </ul>
     </div>
-
     <!-- Packages -->
     <div class="section" id="packages">
         <h2>Event Packages</h2>
@@ -867,7 +838,6 @@
             </tr>
         </table>
     </div>
-
     <!-- Contact -->
     <div class="section" id="contact">
         <h2>Contact Us</h2>
@@ -876,24 +846,20 @@
         <p>📞 Phone: <a href="tel:+919876543210">+91 98765 43210</a></p>
         <p>📍 Location: Coimbatore, Tamil Nadu</p>
     </div>
-
     <!-- ════════════════════════════════════════
     PAGE 2 — Registration Portal
     ════════════════════════════════════════ -->
-
     <!-- Registration Header -->
     <div class="reg-header" id="registration">
         <h1>EventSphere Registration Portal</h1>
         <p>Secure your spot at our upcoming events</p>
     </div>
-
     <!-- About Registration -->
     <div class="section">
         <h2>About Registration</h2>
         <p style="margin:0 0 12px; font-style:normal;">Complete the form below to register for your preferred event. Choose your package and upload the necessary documents.</p>
         <img class="banner-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600" alt="Event celebration banner" />
     </div>
-
     <!-- Registration Form -->
     <div class="section">
         <h2>Registration Form</h2>
@@ -901,39 +867,30 @@
         <form action="#" method="get" enctype="multipart/form-data">
             <fieldset>
                 <legend>Participant Details</legend>
-
                 <label for="fname">Full Name *</label>
                 <input type="text" id="fname" name="fname" placeholder="Enter your full name" required />
-
                 <label for="email">Email *</label>
                 <input type="email" id="email" name="email" placeholder="you@example.com" required />
-
                 <label for="pwd">Password</label>
                 <input type="password" id="pwd" name="pwd" placeholder="Create a password" />
-
                 <label for="phone">Phone Number</label>
                 <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" />
-
                 <label for="dob">Date of Birth</label>
                 <input type="date" id="dob" name="dob" />
-
                 <label for="age">Age</label>
                 <input type="number" id="age" name="age" min="1" max="120" placeholder="Enter your age" />
-
                 <label>Gender</label>
                 <div class="radio-group">
                     <label><input type="radio" name="gender" value="male" /> Male</label>
                     <label><input type="radio" name="gender" value="female" /> Female</label>
                     <label><input type="radio" name="gender" value="other" /> Other</label>
                 </div>
-
                 <label>Interests</label>
                 <div class="check-group">
                     <label><input type="checkbox" name="interest" value="music" /> Music</label>
                     <label><input type="checkbox" name="interest" value="dance" /> Dance</label>
                     <label><input type="checkbox" name="interest" value="sports" /> Sports</label>
                 </div>
-
                 <label for="event">Select Event</label>
                 <select id="event" name="event">
                     <option>— Choose an Event —</option>
@@ -942,39 +899,29 @@
                     <option>Birthday Carnival</option>
                     <option>College Fest</option>
                 </select>
-
                 <label for="idproof">Upload ID Proof</label>
                 <input type="file" id="idproof" name="idproof" />
-
                 <label for="website">Your Website (optional)</label>
                 <input type="url" id="website" name="website" placeholder="https://yoursite.com" />
-
                 <label for="search">Search Event</label>
                 <input type="search" id="search" name="search" placeholder="Type to search…" />
-
                 <label for="ptime">Preferred Time</label>
                 <input type="time" id="ptime" name="ptime" />
-
                 <label for="pweek">Preferred Week</label>
                 <input type="week" id="pweek" name="pweek" />
-
                 <label for="pmonth">Preferred Month</label>
                 <input type="month" id="pmonth" name="pmonth" />
-
                 <label for="feedback">Feedback / Special Requests</label>
                 <textarea id="feedback" name="feedback" rows="5" placeholder="Write your message here…"></textarea>
-
                 <label>Booking Progress</label>
                 <progress value="70" max="100"></progress>
                 <p style="margin:4px 0 0; font-size:0.85rem; color:#1a4a7a;">70% complete</p>
-
                 <br />
                 <input type="submit" value="Register Now" class="btn-submit" />
                 <input type="reset" value="Clear Form" class="btn-reset" />
             </fieldset>
         </form>
     </div>
-
     <!-- Available Packages Table -->
     <div class="section">
         <h2>Available Packages</h2>
@@ -1002,7 +949,6 @@
             </tr>
         </table>
     </div>
-
     <!-- Audio -->
     <div class="section">
         <h2>Background Music</h2>
@@ -1012,7 +958,6 @@
             Your browser does not support the audio element.
         </audio>
     </div>
-
     <!-- Video -->
     <div class="section">
         <h2>Promotional Video</h2>
@@ -1022,7 +967,6 @@
             Your browser does not support the video element.
         </video>
     </div>
-
     <!-- Gallery -->
     <div class="section">
         <h2>Event Inspiration Gallery</h2>
@@ -1035,25 +979,22 @@
             <img src="Screenshot 2026-07-15 212820.png" alt="Event decor 5" />
         </div>
     </div>
-
     <!-- Map -->
     <div class="section">
         <h2>Our Location</h2>
         <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125322.17673946395!2d76.89505615!3d11.0016865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859af2f971cb5%3A0x2fc1c81e183ed282!2sCoimbatore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1691000000000!5m2!1sen!2sin"
-        width="100%"
-        height="350"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-    ></iframe>
-</div>
-
-<!-- Footer -->
-<footer>
-    <p>&copy; 2026 EventSphere — Crafted with &hearts; using HTML5 &amp; CSS3</p>
-    <p><a href="#top">↑ Go to Top</a></p>
-</footer>
-
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125322.17673946395!2d76.89505615!3d11.0016865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859af2f971cb5%3A0x2fc1c81e183ed282!2sCoimbatore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1691000000000!5m2!1sen!2sin"
+            width="100%"
+            height="350"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 EventSphere — Crafted with &hearts; using HTML5 &amp; CSS3</p>
+        <p><a href="#top">↑ Go to Top</a></p>
+    </footer>
 </body>
 </html>
