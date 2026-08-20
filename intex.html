@@ -890,87 +890,7 @@
     <!-- ════════════════════════════════════════
     PAGE 2 — Registration Portal
     ════════════════════════════════════════ -->
-    <!-- Registration Header -->
-    <div class="reg-header" id="registration">
-        <h1>EventSphere Registration Portal</h1>
-        <p>Secure your spot at our upcoming events</p>
-    </div>
-    <!-- About Registration -->
-    <div class="section">
-        <h2>About Registration</h2>
-        <p style="margin:0 0 12px; font-style:normal;">Complete the form below to register for your preferred event. Choose your package and upload the necessary documents.</p>
-        <img class="banner-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600" alt="Event celebration banner" />
-    </div>
-    <!-- Registration Form -->
-    <div class="section">
-        <h2>Registration Form</h2>
-        <hr />
-        <form action="#" method="get" enctype="multipart/form-data">
-            <fieldset>
-                <legend>Participant Details</legend>
-                <label for="fname">Full Name *</label>
-                <input type="text" id="fname" name="fname" placeholder="Enter your full name" required />
-                <label for="email">Email *</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required />
-                <label for="pwd">Password</label>
-                <input type="password" id="pwd" name="pwd" placeholder="Create a password" />
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" />
-                <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob" />
-                <label for="age">Age</label>
-                <input type="number" id="age" name="age" min="1" max="120" placeholder="Enter your age" />
-                <label>Gender</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="gender" value="male" /> Male</label>
-                    <label><input type="radio" name="gender" value="female" /> Female</label>
-                    <label><input type="radio" name="gender" value="other" /> Other</label>
-                </div>
-                <label>Interests</label>
-                <div class="check-group">
-                    <label><input type="checkbox" name="interest" value="music" /> Music</label>
-                    <label><input type="checkbox" name="interest" value="dance" /> Dance</label>
-                    <label><input type="checkbox" name="interest" value="sports" /> Sports</label>
-                </div>
-                <label for="event">Select Event</label>
-                <select id="event" name="event">
-                    <option>— Choose an Event —</option>
-                     <option>Wedding Expo</option>
-                     <option>Corporate Meet</option>
-                     <option>Birthday Carnival</option>
-                     <option>College Fest</option>
-                     <option>Music Concert</option>
-                     <option>Fashion Show</option>
-                     <option>Engagement Ceremony</option>
-                     <option>Baby Shower</option>
-                     <option>Anniversary Celebration</option>
-                     <option>Product Launch</option>
-                     <option>Charity Gala</option>
-                     <option>New Year Party</option>
-                     <option>Sports Tournament</option>
-                     <option>Graduation Party</option>
-                     <option>Family Reunion</option>
-                </select>
-                <label for="search">Search Event</label>
-                <input type="search" id="search" name="search" placeholder="Type to search…" />
-                <label for="ptime">Preferred Time</label>
-                <input type="time" id="ptime" name="ptime" />
-                <label for="pweek">Preferred Week</label>
-                <input type="week" id="pweek" name="pweek" />
-                <label for="pmonth">Preferred Month</label>
-                <input type="month" id="pmonth" name="pmonth" />
-                <label for="feedback">Feedback / Special Requests</label>
-                <textarea id="feedback" name="feedback" rows="5" placeholder="Write your message here…"></textarea>
-                <label>Booking Progress</label>
-                <progress value="70" max="100"></progress>
-                <p style="margin:4px 0 0; font-size:0.85rem; color:#1a4a7a;">70% complete</p>
-                <br />
-                <input type="submit" value="Register Now" class="btn-submit" />
-                <input type="reset" value="Clear Form" class="btn-reset" />
-            </fieldset>
-        </form>
-    </div>
-    <!-- Available Packages Table -->
+        <!-- Available Packages Table -->
     <div class="section">
         <h2>Available Packages</h2>
         <hr />
@@ -1047,10 +967,562 @@
             referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
     </div>
+    <!-- Registration Header -->
+    <div class="reg-header" id="registration">
+        <h1>EventSphere Registration Portal</h1>
+        <p>Secure your spot at our upcoming events</p>
+    </div>
+    <!-- About Registration -->
+    <div class="section">
+        <h2>About Registration</h2>
+        <p style="margin:0 0 12px; font-style:normal;">Complete the form below to register for your preferred event. Choose your package and upload the necessary documents.</p>
+        <img class="banner-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600" alt="Event celebration banner" />
+    </div>
+    <!-- Registration Form -->
+    <div class="section">
+        <h2>Registration Form</h2>
+        <hr />
+        <form action="#" method="get" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Participant Details</legend>
+                <label for="fname">Full Name *</label>
+                <input type="text" id="fname" name="fname" placeholder="Enter your full name" required />
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required />
+                <label for="pwd">Password</label>
+                <input type="password" id="pwd" name="pwd" placeholder="Create a password" />
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" />
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" />
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="1" max="120" placeholder="Enter your age" />
+                <label>Gender</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="male" /> Male</label>
+                    <label><input type="radio" name="gender" value="female" /> Female</label>
+                    <label><input type="radio" name="gender" value="other" /> Other</label>
+                </div>
+                <label>Interests</label>
+                <div class="check-group">
+                    <label><input type="checkbox" name="interest" value="music" /> Music</label>
+                    <label><input type="checkbox" name="interest" value="dance" /> Dance</label>
+                    <label><input type="checkbox" name="interest" value="dj" /> dj</label>
+                    <label><input type="checkbox" name="interest" value="singing" /> singing </label>
+                </div>
+                <label for="event">Select Event</label>
+                <select id="event" name="event">
+                    <option>— Choose an Event —</option>
+                     <option>Wedding Expo</option>
+                     <option>Corporate Meet</option>
+                     <option>Birthday Carnival</option>
+                     <option>College Fest</option>
+                     <option>Music Concert</option>
+                     <option>Fashion Show</option>
+                     <option>Engagement Ceremony</option>
+                     <option>Baby Shower</option>
+                     <option>Anniversary Celebration</option>
+                     <option>Product Launch</option>
+                     <option>Charity Gala</option>
+                     <option>New Year Party</option>
+                     <option>Sports Tournament</option>
+                     <option>Graduation Party</option>
+                     <option>Family Reunion</option>
+                </select>
+                 <label for="package">Select Package *</label>
+                <select id="package" name="package" required>
+                <option value="">— Choose a Package —</option>
+                <option value="Silver">Silver — ₹10,000</option>
+                <option value="Gold">Gold — ₹25,000</option>
+                <option value="Platinum">Platinum — ₹50,000</option>
+                <option value="Custom">Custom Package</option>
+             </select>
+
+<div id="customPriceBox" style="display: none; margin-top: 15px;">
+    <label for="customPrice">Enter Your Custom Price (₹) *</label>
+    <input
+        type="number"
+        id="customPrice"
+        name="customPrice"
+        min="1"
+        placeholder="Enter your budget"
+    />
+
+    <label for="customRequest">Custom Package Requirements</label>
+    <textarea
+        id="customRequest"
+        name="customRequest"
+        rows="4"
+        placeholder="Describe your event requirements..."
+    ></textarea>
+</div>
+                <label for="search">Search Event</label>
+                <input type="search" id="search" name="search" placeholder="Type to search…" />
+                <label for="ptime">Preferred Time</label>
+                <input type="time" id="ptime" name="ptime" />
+                <label for="pweek">Preferred Week</label>
+                <input type="week" id="pweek" name="pweek" />
+                <label for="pmonth">Preferred Month</label>
+                <input type="month" id="pmonth" name="pmonth" />
+                <label for="feedback">Feedback / Special Requests</label>
+                <textarea id="feedback" name="feedback" rows="5" placeholder="Write your message here…"></textarea>
+                <label>Booking Progress</label>
+                <progress value="70" max="100"></progress>
+                <p style="margin:4px 0 0; font-size:0.85rem; color:#1a4a7a;">70% complete</p>
+                <br />
+                <input type="submit" value="Register Now" class="btn-submit" />
+                <input type="reset" value="Clear Form" class="btn-reset" />
+               
+            </fieldset>
+        </form>
+    </div>
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 EventSphere — Crafted with &hearts; using HTML5 &amp; CSS3</p>
         <p><a href="#top">↑ Go to Top</a></p>
     </footer>
+    </footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =========================
+       REGISTRATION FORM
+    ========================= */
+
+    const form = document.querySelector("#registration + .section + .section + .section + .section + .section + .section + .section + .section form");
+
+    /*
+       If the above path doesn't find the form,
+       simply find the form containing #fname.
+    */
+
+    const registrationForm =
+        document.querySelector("form:has(#fname)") ||
+        form;
+
+
+    if (!registrationForm) {
+        console.error("❌ Registration form not found");
+        return;
+    }
+
+
+    console.log("✅ Registration form found");
+
+
+    /* =========================
+       PACKAGE
+    ========================= */
+
+    const packageSelect =
+        document.getElementById("package");
+
+    const customPriceBox =
+        document.getElementById("customPriceBox");
+
+    const customPrice =
+        document.getElementById("customPrice");
+
+
+    /* Custom package */
+
+    if (packageSelect) {
+
+        packageSelect.addEventListener("change", function () {
+
+            if (this.value === "Custom") {
+
+                customPriceBox.style.display = "block";
+
+                customPrice.required = true;
+
+            } else {
+
+                customPriceBox.style.display = "none";
+
+                customPrice.required = false;
+
+                customPrice.value = "";
+            }
+
+        });
+
+    }
+
+
+    /* =========================
+       REGISTER BUTTON
+    ========================= */
+
+    registrationForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        console.log("✅ REGISTER BUTTON CLICKED");
+
+
+        /* Check required fields */
+
+        if (!registrationForm.checkValidity()) {
+
+            registrationForm.reportValidity();
+
+            return;
+        }
+
+
+        /* =========================
+           GET USER DETAILS
+        ========================= */
+
+        const name =
+            document.getElementById("fname").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const eventName =
+            document.getElementById("event").value;
+
+        const packageName =
+            document.getElementById("package").value;
+
+
+        /* =========================
+           PACKAGE PRICE
+        ========================= */
+
+        let packagePrice = "";
+
+        if (packageName === "Silver") {
+
+            packagePrice = "₹10,000";
+
+        } else if (packageName === "Gold") {
+
+            packagePrice = "₹25,000";
+
+        } else if (packageName === "Platinum") {
+
+            packagePrice = "₹50,000";
+
+        } else if (packageName === "Custom") {
+
+            packagePrice =
+                "₹" +
+                document.getElementById("customPrice").value;
+
+        }
+
+
+        /* =========================
+           REMOVE OLD MESSAGE
+        ========================= */
+
+        const oldMessage =
+            document.getElementById("thankYouMessage");
+
+        if (oldMessage) {
+            oldMessage.remove();
+        }
+
+
+        /* =========================
+           CREATE THANK YOU MESSAGE
+        ========================= */
+
+        const thankYou =
+            document.createElement("div");
+
+        thankYou.id =
+            "thankYouMessage";
+
+
+        thankYou.innerHTML = `
+
+            <div class="thank-you-box">
+
+                <div class="thank-you-icon">
+                    🎉
+                </div>
+
+                <h2>
+                    Thank You for Registering,
+                    ${name}!
+                </h2>
+
+                <p class="thank-you-main">
+                    Your registration has been
+                    received successfully.
+                </p>
+
+                <p>
+                    Our EventSphere team will
+                    contact you shortly.
+                </p>
+
+                <h3>
+                    Your Booking Details
+                </h3>
+
+                <table>
+
+                    <tr>
+                        <th>Booking Detail</th>
+                        <th>Your Selection</th>
+                    </tr>
+
+                    <tr>
+                        <td>Name</td>
+                        <td>${name}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Email</td>
+                        <td>${email}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Event</td>
+                        <td>${eventName}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Package</td>
+                        <td>${packageName}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Package Price</td>
+                        <td>${packagePrice}</td>
+                    </tr>
+
+                </table>
+
+                <p class="thank-you-final">
+                    ❤️ Thank you for choosing EventSphere!
+                </p>
+
+            </div>
+        `;
+
+
+        /* =========================
+           THANK YOU CSS
+        ========================= */
+
+        const style =
+            document.createElement("style");
+
+        style.textContent = `
+
+            #thankYouMessage {
+
+                max-width: 1080px;
+
+                margin: 30px auto;
+
+                padding: 0 20px;
+
+                animation:
+                    thankYouAppear 0.6s ease;
+
+            }
+
+
+            .thank-you-box {
+
+                background:
+                    rgba(255,255,255,0.96);
+
+                padding: 40px;
+
+                border-radius: 20px;
+
+                border:
+                    2px solid #e9c46a;
+
+                box-shadow:
+                    0 18px 45px
+                    rgba(20,6,40,0.25);
+
+                text-align: center;
+
+            }
+
+
+            .thank-you-icon {
+
+                font-size: 50px;
+
+                margin-bottom: 10px;
+
+            }
+
+
+            .thank-you-box h2 {
+
+                color: #4b176f;
+
+                margin-bottom: 15px;
+
+                font-size: 2rem;
+
+            }
+
+
+            .thank-you-box h3 {
+
+                color: #7a3c13;
+
+                margin-top: 25px;
+
+                margin-bottom: 10px;
+
+            }
+
+
+            .thank-you-main {
+
+                font-size: 1.15rem;
+
+                font-weight: 600;
+
+            }
+
+
+            .thank-you-final {
+
+                margin-top: 25px;
+
+                font-weight: 700;
+
+                color: #4b176f;
+
+            }
+
+
+            .thank-you-box table {
+
+                width: 100%;
+
+                border-collapse: collapse;
+
+                margin-top: 15px;
+
+            }
+
+
+            .thank-you-box th {
+
+                background:
+                    linear-gradient(
+                        135deg,
+                        #321050,
+                        #6d2f89
+                    );
+
+                color: white;
+
+                padding: 13px;
+
+            }
+
+
+            .thank-you-box td {
+
+                padding: 13px;
+
+                border:
+                    1px solid
+                    rgba(42,106,158,0.2);
+
+            }
+
+
+            @keyframes thankYouAppear {
+
+                from {
+
+                    opacity: 0;
+
+                    transform:
+                        translateY(25px);
+
+                }
+
+                to {
+
+                    opacity: 1;
+
+                    transform:
+                        translateY(0);
+
+                }
+
+            }
+
+        `;
+
+
+        document.head.appendChild(style);
+
+
+        /* =========================
+           INSERT MESSAGE
+        ========================= */
+
+        registrationForm
+            .closest(".section")
+            .insertAdjacentElement(
+                "afterend",
+                thankYou
+            );
+
+
+        /* =========================
+           SCROLL TO MESSAGE
+        ========================= */
+
+        setTimeout(function () {
+
+            thankYou.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "start"
+
+            });
+
+        }, 100);
+
+
+        console.log(
+            "🎉 Thank You message displayed!"
+        );
+
+
+        /* =========================
+           RESET FORM
+        ========================= */
+
+        registrationForm.reset();
+
+        if (customPriceBox) {
+            customPriceBox.style.display = "none";
+        }
+
+        if (customPrice) {
+            customPrice.required = false;
+        }
+
+    });
+
+});
+</script>
+
+</body>
+</html>
 </body>
 </html>
