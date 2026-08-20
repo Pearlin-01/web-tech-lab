@@ -1,174 +1,107 @@
-/* JavaScript DOM Elements and Events — EventSphere Web Technology Lab */
-"use strict";
+/* EventSphere interaction layer — place this file beside your HTML file. */
+document.addEventListener('DOMContentLoaded', () => {
+  const loginCard = document.querySelector('.form-container > div:first-child');
+  const loginEmail = loginCard.querySelector('input[type="email"]');
+  const loginPassword = loginCard.querySelector('input[type="password"]');
+  const loginButton = loginCard.querySelector('input[type="submit"]');
+  const registerForm = document.querySelector('#registration ~ .section form');
+  const registrationHeader = document.querySelector('#registration');
+  const protectedSections = [...document.querySelectorAll('.section')];
+  const protectedNav = [...document.querySelectorAll('nav a:not([href="#about"])')];
+  const priceByPackage = {
+    Silver: '₹10,000', Gold: '₹25,000', Platinum: '₹50,000',
+    'Diamond': '₹80,000', 'Signature': '₹1,50,000', 'Customised': 'Custom quotation'
+  };
+  const eventOptions = [
+    'Wedding Expo', 'Corporate Meet', 'Birthday Carnival', 'College Fest',
+    'Music Concert', 'Baby Shower', 'Engagement Ceremony', 'Product Launch',
+    'Anniversary Celebration', 'Workshop & Seminar'
+  ];
 
-window.addEventListener("load", function () { // onload event
-    // getElementById(): selects one element using its unique id.
-    const form = document.querySelector("#registration ~ .section form");
-    const nameInput = document.getElementById("fname");
-    const emailInput = document.getElementById("email");
-    const eventSelect = document.getElementById("event");
-    const feedbackInput = document.getElementById("feedback");
-    const progressBar = document.querySelector("progress"); // querySelector(): first match.
+  // Details and booking are private until the visitor signs in.
+  const setLoggedIn = (loggedIn) => {
+    protectedSections.forEach(section => section.hidden = !loggedIn);
+    registrationHeader.hidden = !loggedIn;
+    protectedNav.forEach(link => link.hidden = !loggedIn);
+    document.querySelector('#about').hidden = !loggedIn;
+  };
+  setLoggedIn(false);
 
-    // getElementsByClassName(): returns the site's gallery image collection.
-    const galleryImages = document.getElementsByClassName("gallery")[0].getElementsByTagName("img");
-    // getElementsByTagName(): returns all table rows used for package selection.
-    const tableRows = document.getElementsByTagName("tr");
-    // querySelectorAll(): selects every editable registration control.
-    const formFields = form.querySelectorAll("input:not([type=submit]):not([type=reset]), select, textarea");
-    const packageRows = document.querySelectorAll("#packages table tr, #registration ~ .section table tr");
-
-    // DOM creation: messages are added at runtime; the original HTML remains unchanged.
-    const panel = document.createElement("div");
-    panel.setAttribute("aria-live", "polite");
-    panel.style.cssText = "margin:12px 0;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.55);color:#0d2b4e;font-size:.92rem;";
-    form.parentElement.insertBefore(panel, form);
-
-    const message = document.createElement("p");
-    const dateTime = document.createElement("p");
-    const selectedEvent = document.createElement("p");
-    const characterCount = document.createElement("p");
-    const packageDetails = document.createElement("p");
-    const tip = document.createElement("p");
-    const keyboardDemo = document.createElement("p");
-    const mouseDemo = document.createElement("p");
-    panel.append(message, dateTime, selectedEvent, characterCount, packageDetails, tip, keyboardDemo, mouseDemo);
-
-    let clickCount = 0;
-    let resetApproved = false;
-    const eventTips = [
-        "Tip: Book your venue before finalising decor.",
-        "Tip: Confirm guest count early for accurate catering.",
-        "Tip: Keep a small contingency budget for your event.",
-        "Tip: Share the event schedule with vendors in advance."
-    ];
-
-    function showMessage(text, good) {
-        message.textContent = text;
-        message.style.color = good ? "#176b3a" : "#a12b2b";
+  const loginMessage = document.createElement('p');
+  loginMessage.setAttribute('aria-live', 'polite');
+  loginCard.append(loginMessage);
+  loginButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (!loginEmail.value.trim() || !loginPassword.value.trim()) {
+      loginMessage.textContent = 'Please enter your email and password to view event details.';
+      return;
     }
+    setLoggedIn(true);
+    loginCard.innerHTML = `<h2>Welcome, ${loginEmail.value.split('@')[0]}!</h2><p>You are signed in. Explore the event details and make your booking below.</p>`;
+    document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
+  });
 
-    function updateDateTime() {
-        dateTime.textContent = "Current date and time: " + new Date().toLocaleString();
-    }
+  const eventSelect = registerForm.querySelector('#event');
+  eventSelect.innerHTML = '<option value="">— Choose an Event —</option>' +
+    eventOptions.map(event => `<option value="${event}">${event}</option>`).join('');
+  eventSelect.required = true;
 
-    function updateProgress() {
-        const completed = Array.from(formFields).filter(function (field) {
-            if (field.type === "checkbox" || field.type === "radio") return field.checked;
-            if (field.type === "file") return field.files.length > 0;
-            return field.value.trim() !== "";
-        }).length;
-        const percentage = Math.min(100, Math.round((completed / formFields.length) * 100));
-        progressBar.value = percentage;
-        progressBar.nextElementSibling.textContent = percentage + "% complete";
-    }
+  const packageLabel = document.createElement('label');
+  packageLabel.htmlFor = 'package';
+  packageLabel.textContent = 'Choose Package *';
+  const packageSelect = document.createElement('select');
+  packageSelect.id = 'package'; packageSelect.name = 'package'; packageSelect.required = true;
+  packageSelect.innerHTML = '<option value="">— Choose a Package —</option>' +
+    Object.entries(priceByPackage).map(([name, price]) => `<option value="${name}">${name} — ${price}</option>`).join('');
+  const priceNote = document.createElement('p');
+  priceNote.style.cssText = 'margin:8px 0 0;font-size:.9rem;color:#1a4a7a;';
+  priceNote.textContent = 'Select a package to view its price.';
+  eventSelect.insertAdjacentElement('afterend', packageLabel);
+  packageLabel.insertAdjacentElement('afterend', packageSelect);
+  packageSelect.insertAdjacentElement('afterend', priceNote);
+  packageSelect.addEventListener('change', () => {
+    priceNote.textContent = packageSelect.value ? `Selected price: ${priceByPackage[packageSelect.value]}` : 'Select a package to view its price.';
+    customPackageBox.hidden = packageSelect.value !== 'Customised';
+  });
 
-    // onkeyup: welcome text, character count, progress, and keyboard demonstration.
-    nameInput.onkeyup = function () {
-        const name = nameInput.value.trim();
-        showMessage(name ? "Welcome, " + name + "! We are glad you are registering." : "Please enter your full name.");
-        keyboardDemo.textContent = "Keyboard event: last key released while typing your name.";
-        updateProgress();
-    };
+  const customPackageBox = document.createElement('div');
+  customPackageBox.className = 'custom-package-box';
+  customPackageBox.hidden = true;
+  customPackageBox.innerHTML = `
+    <h3>Customise Your Package</h3>
+    <label for="guest-count">Expected Guests</label>
+    <input id="guest-count" name="guest-count" type="number" min="1" placeholder="e.g. 150" />
+    <label for="budget">Your Budget (₹)</label>
+    <input id="budget" name="budget" type="number" min="0" placeholder="e.g. 60000" />
+    <label for="custom-addons">Add-ons you would like</label>
+    <textarea id="custom-addons" name="custom-addons" rows="3" placeholder="Decor, DJ, catering, photography, live band…"></textarea>`;
+  priceNote.insertAdjacentElement('afterend', customPackageBox);
 
-    feedbackInput.onkeyup = function () {
-        characterCount.textContent = "Feedback character count: " + feedbackInput.value.length;
-        updateProgress();
-    };
-
-    // onchange: displays the selected event dynamically.
-    eventSelect.onchange = function () {
-        selectedEvent.textContent = eventSelect.selectedIndex ? "Selected event: " + eventSelect.value : "No event selected yet.";
-        updateProgress();
-    };
-
-    // onfocus and onblur: highlight inputs and validate the email field.
-    formFields.forEach(function (field) {
-        field.onfocus = function () {
-            field.style.backgroundColor = "#eef7ff";
-        };
-        field.onblur = function () {
-            field.style.backgroundColor = "";
-            updateProgress();
-        };
-    });
-
-    emailInput.onblur = function () {
-        const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
-        if (emailInput.value && !validEmail) {
-            showMessage("Please enter a valid email address.");
-        } else if (emailInput.value) {
-            showMessage("Email address validated successfully.", true);
-        }
-        updateProgress();
-    };
-
-    // onclick: counts Register Now clicks and chooses a random event-management tip.
-    form.querySelector(".btn-submit").onclick = function () {
-        clickCount += 1;
-        tip.textContent = "Button clicks: " + clickCount + ". " + eventTips[Math.floor(Math.random() * eventTips.length)];
-    };
-
-    // ondblclick: a direct double-click event demonstration on the registration heading.
-    document.querySelector("#registration h1").ondblclick = function () {
-        showMessage("Double-click event detected on the Registration Portal heading.", true);
-    };
-
-    // onmouseover and onmouseout: gallery borders and a mouse-event message.
-    Array.from(galleryImages).forEach(function (image) {
-        image.onmouseover = function () {
-            image.style.border = "4px solid #1a4a7a";
-            mouseDemo.textContent = "Mouseover event: gallery image highlighted.";
-        };
-        image.onmouseout = function () {
-            image.style.border = "";
-            mouseDemo.textContent = "Mouseout event: gallery image restored.";
-        };
-    });
-
-    // addEventListener(): clicking a package row displays its details.
-    packageRows.forEach(function (row) {
-        if (row.cells.length === 3 && row.querySelector("td")) {
-            row.addEventListener("click", function () {
-                packageDetails.textContent = "Selected package: " + Array.from(row.cells).map(function (cell) {
-                    return cell.textContent;
-                }).join(" | ");
-            });
-        }
-    });
-
-    // addEventListener(): form submission shows a registration summary and success message.
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        const summary = "Registration summary — Name: " + (nameInput.value || "Not entered") +
-            "; Email: " + (emailInput.value || "Not entered") +
-            "; Event: " + (eventSelect.selectedIndex ? eventSelect.value : "Not selected");
-        alert(summary);
-        showMessage("Registration submitted successfully. " + summary, true);
-    });
-
-    // addEventListener(): reset confirmation preserves the user's form until confirmed.
-    form.addEventListener("reset", function (event) {
-        if (!resetApproved) {
-            event.preventDefault();
-            if (confirm("Clear all registration form details?")) {
-                resetApproved = true;
-                form.reset();
-                resetApproved = false;
-                showMessage("Form has been reset.", true);
-            }
-        }
-    });
-
-    // addEventListener(): back-to-top link performs a smooth scroll and records the event.
-    document.querySelectorAll('a[href="#top"]').forEach(function (link) {
-        link.addEventListener("click", function () {
-            mouseDemo.textContent = "Back-to-top button clicked.";
-        });
-    });
-
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
-    updateProgress();
+  registerForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!registerForm.reportValidity()) return;
+    const name = registerForm.querySelector('#fname').value.trim();
+    const email = registerForm.querySelector('#email').value.trim();
+    const preferredDate = registerForm.querySelector('#pmonth').value || 'To be confirmed';
+    const customDetails = packageSelect.value === 'Customised'
+      ? `Guests: ${registerForm.querySelector('#guest-count').value || 'Not specified'} · Budget: ₹${registerForm.querySelector('#budget').value || 'Not specified'} · Add-ons: ${registerForm.querySelector('#custom-addons').value || 'None specified'}`
+      : 'Standard package selected';
+    const confirmation = document.createElement('section');
+    confirmation.className = 'section';
+    confirmation.id = 'booking-confirmation';
+    confirmation.innerHTML = `
+      <h2>Thank You for Registering!</h2>
+      <p>Your booking request has been received. Our team will contact you shortly.</p>
+      <table><tr><th>Booking Detail</th><th>Your Selection</th></tr>
+      <tr><td>Guest Name</td><td>${name}</td></tr>
+      <tr><td>Email</td><td>${email}</td></tr>
+      <tr><td>Event</td><td>${eventSelect.value}</td></tr>
+      <tr><td>Package Chosen</td><td>${packageSelect.value}</td></tr>
+      <tr><td>Package Price</td><td>${priceByPackage[packageSelect.value]}</td></tr>
+      <tr><td>Package Details</td><td>${customDetails}</td></tr>
+      <tr><td>Preferred Month</td><td>${preferredDate}</td></tr></table>`;
+    document.querySelector('#booking-confirmation')?.remove();
+    registerForm.closest('.section').insertAdjacentElement('afterend', confirmation);
+    confirmation.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 });
-
