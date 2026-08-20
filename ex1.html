@@ -7,7 +7,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         /* ── Reset & Base ── */
         *,
@@ -22,11 +22,11 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(145deg, #e3edfa 0%, #b8d4f0 35%, #7bb0d9 70%, #3f7eb6 100%);
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #1a0b32;
             background-attachment: fixed;
             min-height: 100vh;
-            color: #1a2a44;
+            color: #271640;
             display: flex;
             flex-direction: column;
             line-height: 1.6;
@@ -38,7 +38,11 @@
             position: fixed;
             inset: 0;
             z-index: -1;
-            background: linear-gradient(135deg, #dce9f9 0%, #a8c8ed 25%, #6ea2d4 50%, #3a7bb5 75%, #1a4a7a 100%);
+            background:
+                radial-gradient(circle at 12% 12%, rgba(229, 190, 87, 0.28) 0 3%, transparent 19%),
+                radial-gradient(circle at 87% 18%, rgba(179, 119, 236, 0.34) 0 5%, transparent 25%),
+                radial-gradient(circle at 70% 82%, rgba(245, 204, 102, 0.18) 0 5%, transparent 23%),
+                linear-gradient(135deg, #19092d 0%, #3d1765 38%, #6d3592 65%, #24113e 100%);
             background-size: 400% 400%;
             animation: blueShift 28s ease infinite;
         }
@@ -75,7 +79,7 @@
         h2,
         h3,
         h4 {
-            font-family: 'Playfair Display', 'Georgia', serif;
+            font-family: 'Cinzel', 'Times New Roman', serif;
             font-weight: 700;
             letter-spacing: 0.02em;
         }
@@ -85,37 +89,37 @@
         }
         h2 {
             font-size: 2rem;
-            color: #0d2b4e;
+            color: #4b176f;
         }
         h3 {
             font-size: 1.3rem;
-            color: #1a4a7a;
+            color: #7a3c13;
         }
 
         p {
             font-size: 1rem;
             line-height: 1.8;
-            color: #1e334f;
+            color: #352049;
         }
 
         a {
-            color: #1a5a8a;
+            color: #6d3190;
             text-decoration: none;
             transition: color 0.3s, background 0.3s;
         }
         a:hover {
-            color: #0d3b6a;
+            color: #4a1769;
             text-decoration: underline;
         }
 
         /* ── Glass Card ── */
         .glass {
-            background: rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.76);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 24px;
-            box-shadow: 0 18px 40px rgba(10, 30, 60, 0.15), 0 6px 18px rgba(0, 20, 50, 0.08);
+            border: 1px solid rgba(241, 205, 112, 0.5);
+            border-radius: 18px;
+            box-shadow: 0 18px 40px rgba(20, 6, 40, 0.24), 0 0 0 1px rgba(255, 222, 132, 0.12);
             transition: transform 0.25s ease, box-shadow 0.3s ease;
         }
 
@@ -124,13 +128,21 @@
             box-shadow: 0 24px 50px rgba(10, 30, 60, 0.2);
         }
 
+        .custom-package-box {
+            margin-top: 14px;
+            padding: 18px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255, 225, 107, 0.5), rgba(255, 150, 186, 0.38), rgba(126, 224, 237, 0.42));
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
         /* ── Header ── */
         header {
-            background: linear-gradient(135deg, #0a2647, #1a4a7a, #2a6a9e);
+            background: linear-gradient(120deg, #210b3d, #5d247e 58%, #8c5821);
             color: #fff;
             text-align: center;
             padding: 48px 30px 36px;
-            border-bottom: 4px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 3px solid #e9c46a;
             position: relative;
             overflow: hidden;
         }
@@ -169,7 +181,7 @@
 
         /* ── Navigation ── */
         nav {
-            background: rgba(10, 38, 71, 0.85);
+            background: rgba(35, 12, 63, 0.92);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding: 12px 0;
@@ -221,12 +233,12 @@
             flex: 1 1 300px;
             max-width: 380px;
             padding: 32px 28px;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.78);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 0 20px 48px rgba(10, 30, 60, 0.12);
+            border-radius: 18px;
+            border: 1px solid rgba(237, 199, 99, 0.5);
+            box-shadow: 0 20px 48px rgba(20, 6, 40, 0.2);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -263,7 +275,7 @@
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(4px);
             transition: border-color 0.3s, box-shadow 0.3s;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Manrope', sans-serif;
         }
 
         .form-container input:focus {
@@ -276,13 +288,13 @@
         .section {
             margin: 24px auto;
             padding: 32px 38px;
-            max-width: 1100px;
-            background: rgba(255, 255, 255, 0.5);
+            max-width: 1080px;
+            background: rgba(255, 255, 255, 0.78);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 16px 40px rgba(10, 30, 60, 0.08);
+            border-radius: 18px;
+            border: 1px solid rgba(237, 199, 99, 0.52);
+            box-shadow: 0 16px 40px rgba(20, 6, 40, 0.2);
             transition: transform 0.25s, box-shadow 0.3s;
         }
 
@@ -293,7 +305,7 @@
         .section h2 {
             margin-top: 0;
             margin-bottom: 14px;
-            border-bottom: 3px solid rgba(42, 106, 158, 0.2);
+            border-bottom: 3px solid #d9a441;
             padding-bottom: 10px;
         }
 
@@ -371,7 +383,7 @@
         }
 
         th {
-            background: linear-gradient(135deg, #0a2647, #1a4a7a);
+            background: linear-gradient(135deg, #321050, #6d2f89);
             color: #fff;
             padding: 14px 18px;
             text-align: center;
@@ -419,7 +431,7 @@
 
         /* ── Registration Header ── */
         .reg-header {
-            background: linear-gradient(135deg, #0a2647, #1a4a7a, #2a6a9e);
+            background: linear-gradient(120deg, #2c0e4a, #70328e 65%, #9a6726);
             color: #fff;
             padding: 32px 28px;
             text-align: center;
@@ -468,7 +480,7 @@
             border: 1px solid rgba(60, 120, 180, 0.2);
             border-radius: 12px;
             font-size: 0.95rem;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Manrope', sans-serif;
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(4px);
             transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
@@ -555,7 +567,7 @@
             font-size: 1.1rem;
             color: #0a2647;
             padding: 0 12px;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cinzel', serif;
         }
         .btn-submit {
             background: linear-gradient(135deg, #0a2647, #1a4a7a);
@@ -647,6 +659,32 @@
             transform: scale(1.04) rotate(-0.5deg);
             box-shadow: 0 14px 32px rgba(10, 30, 60, 0.16);
         }
+        .about-showcase {
+            display: grid;
+            grid-template-columns: 1.45fr 1fr 1fr;
+            gap: 14px;
+            margin-top: 22px;
+        }
+        .about-showcase figure {
+            position: relative;
+            min-height: 190px;
+            overflow: hidden;
+            border: 2px solid rgba(225, 184, 82, 0.8);
+            border-radius: 14px;
+            box-shadow: 0 10px 24px rgba(28, 7, 48, 0.22);
+        }
+        .about-showcase figure:first-child { grid-row: span 2; min-height: 394px; }
+        .about-showcase img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+        .about-showcase figure:hover img { transform: scale(1.06); }
+        .about-showcase figcaption {
+            position: absolute;
+            right: 0; bottom: 0; left: 0;
+            padding: 24px 14px 12px;
+            color: #fff7df;
+            font-size: .82rem;
+            font-weight: 700;
+            background: linear-gradient(transparent, rgba(28, 7, 48, .9));
+        }
         /* ── Responsive ── */
         @media (max-width: 768px) {
             header h1 {
@@ -684,6 +722,8 @@
             .hero-img {
                 height: 170px;
             }
+            .about-showcase { grid-template-columns: 1fr 1fr; }
+            .about-showcase figure:first-child { grid-column: span 2; grid-row: auto; min-height: 240px; }
             fieldset {
                 padding: 18px 14px;
             }
@@ -760,12 +800,13 @@
         <h2>About Us</h2>
         <p>EventSphere is a professional event management company that orchestrates weddings, corporate meetings, birthday parties, concerts, and college festivals with elegance and precision.</p>
         <p>We bring together creative planning, stunning decor, curated catering, professional photography, and top-tier entertainment to craft experiences that linger in memory.</p>
-        <p><a href="https://www.eventbrite.com" target="_blank" rel="noopener noreferrer">→ Explore events on Eventbrite</a></p>
         <p><a href="#packages">→ View our event packages</a></p>
         <p><a href="#top">↑ Back to top</a></p>
-        <a href="https://unsplash.com/s/photos/event" target="_blank" rel="noopener noreferrer">
-            <img class="hero-img" src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=700" alt="Grand ballroom event setup" />
-        </a>
+        <div class="about-showcase" aria-label="EventSphere event highlights">
+            <figure><img src="Screenshot 2026-07-15 212622.png"Elegant floral wedding stage" /><figcaption>Curated wedding settings</figcaption></figure>
+            <figure><img src="Screenshot 2026-07-15 212600.png"Elegant dinner event table" /><figcaption>Refined dining experiences</figcaption></figure>
+            <figure><img src="Screenshot 2026-07-15 212809.png"Birthday celebration display" /><figcaption>Joyful birthday celebrations</figcaption></figure>
+        </div>
     </div>
     <!-- Services -->
     <div class="section" id="services">
@@ -894,15 +935,22 @@
                 <label for="event">Select Event</label>
                 <select id="event" name="event">
                     <option>— Choose an Event —</option>
-                    <option>Wedding Expo</option>
-                    <option>Corporate Meet</option>
-                    <option>Birthday Carnival</option>
-                    <option>College Fest</option>
+                     <option>Wedding Expo</option>
+                     <option>Corporate Meet</option>
+                     <option>Birthday Carnival</option>
+                     <option>College Fest</option>
+                     <option>Music Concert</option>
+                     <option>Fashion Show</option>
+                     <option>Engagement Ceremony</option>
+                     <option>Baby Shower</option>
+                     <option>Anniversary Celebration</option>
+                     <option>Product Launch</option>
+                     <option>Charity Gala</option>
+                     <option>New Year Party</option>
+                     <option>Sports Tournament</option>
+                     <option>Graduation Party</option>
+                     <option>Family Reunion</option>
                 </select>
-                <label for="idproof">Upload ID Proof</label>
-                <input type="file" id="idproof" name="idproof" />
-                <label for="website">Your Website (optional)</label>
-                <input type="url" id="website" name="website" placeholder="https://yoursite.com" />
                 <label for="search">Search Event</label>
                 <input type="search" id="search" name="search" placeholder="Type to search…" />
                 <label for="ptime">Preferred Time</label>
@@ -972,11 +1020,19 @@
         <h2>Event Inspiration Gallery</h2>
         <p style="font-style:normal; margin:0 0 14px;">Reference images to spark your vision:</p>
         <div class="gallery">
-            <img src="Screenshot 2026-07-15 212600.png" alt="Event decor 1" />
-            <img src="Screenshot 2026-07-15 212622.png" alt="Event decor 2" />
-            <img src="Screenshot 2026-07-15 212753.png" alt="Event decor 3" />
-            <img src="Screenshot 2026-07-15 212809.png" alt="Event decor 4" />
-            <img src="Screenshot 2026-07-15 212820.png" alt="Event decor 5" />
+            <img src="Screenshot 2026-07-15 212600.png" alt="Floral wedding stage" />
+            <img src="Screenshot 2026-07-15 212622.png" alt="White and green wedding backdrop" />
+            <img src="Screenshot 2026-07-15 212753.png" alt="Lakeside floral ceremony" />
+            <img src="Screenshot 2026-07-15 212809.png" alt="Pastel birthday celebration" />
+            <img src="Screenshot 2026-07-15 212820.png" alt="Pink and gold birthday decor" />
+            <img src="Screenshot 2026-08-20 112737.png" alt="Floral garden seating arrangement" />
+            <img src="Screenshot 2026-08-20 112744.png" alt="Yellow floral wedding stage" />
+            <img src="Screenshot 2026-08-20 112759.png" alt="Golden ceremonial decor" />
+            <img src="Screenshot 2026-08-20 112812.png" alt="White decorated event tent" />
+            <img src="Screenshot 2026-08-20 112819.png" alt="Elegant banquet table setting" />
+            <img src="Screenshot 2026-08-20 112831.png" alt="Outdoor red floral mandap" />
+            <img src="Screenshot 2026-08-20 112848.png" alt="Couple at floral wedding arch" />
+            <img src="Screenshot 2026-08-20 112855.png" alt="Mountain wedding ceremony arch" />
         </div>
     </div>
     <!-- Map -->
