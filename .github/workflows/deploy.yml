@@ -1,0 +1,52 @@
+
+name: Deploy EventSphere
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'eventsphere/**'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: eventsphere/package-lock.json
+
+      - name: Install dependencies
+        working-directory: eventsphere
+        run: npm ci
+
+      - name: Build website
+        working-directory: eventsphere
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: eventsphere/dist
+
+      - name: Deploy website
+        uses: actions/deploy-pages@v4
