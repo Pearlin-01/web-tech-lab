@@ -1,13 +1,2579 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
+
+<head>
+
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>eventsphere</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>EventSphere – Event Management</title>
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+
+        /* ── Reset & Base ── */
+
+        *,
+
+        *::before,
+
+        *::after {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+        body {
+
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            background: #1a0b32;
+
+            background-attachment: fixed;
+
+            min-height: 100vh;
+
+            color: #271640;
+
+            display: flex;
+
+            flex-direction: column;
+
+            line-height: 1.6;
+
+        }
+
+        /* ── Animated Blue Gradient Overlay ── */
+
+        body::before {
+
+            content: '';
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: -1;
+
+            background:
+
+                radial-gradient(circle at 12% 12%, rgba(229, 190, 87, 0.28) 0 3%, transparent 19%),
+
+                radial-gradient(circle at 87% 18%, rgba(179, 119, 236, 0.34) 0 5%, transparent 25%),
+
+                radial-gradient(circle at 70% 82%, rgba(245, 204, 102, 0.18) 0 5%, transparent 23%),
+
+                linear-gradient(135deg, #19092d 0%, #3d1765 38%, #6d3592 65%, #24113e 100%);
+
+            background-size: 400% 400%;
+
+            animation: blueShift 28s ease infinite;
+
+        }
+
+        @keyframes blueShift {
+
+            0% {
+
+                background-position: 0% 50%;
+
+            }
+
+            50% {
+
+                background-position: 100% 50%;
+
+            }
+
+            100% {
+
+                background-position: 0% 50%;
+
+            }
+
+        }
+
+        /* ── Scrollbar ── */
+
+        ::-webkit-scrollbar {
+
+            width: 8px;
+
+        }
+
+        ::-webkit-scrollbar-track {
+
+            background: #d0e2f5;
+
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background: #2a6a9e;
+
+            border-radius: 10px;
+
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: #1a4a7a;
+
+        }
+
+        /* ── Typography ── */
+
+        h1,
+
+        h2,
+
+        h3,
+
+        h4 {
+
+            font-family: 'Cinzel', 'Times New Roman', serif;
+
+            font-weight: 700;
+
+            letter-spacing: 0.02em;
+
+        }
+
+        h1 {
+
+            font-size: 2.6rem;
+
+        }
+
+        h2 {
+
+            font-size: 2rem;
+
+            color: #4b176f;
+
+        }
+
+        h3 {
+
+            font-size: 1.3rem;
+
+            color: #7a3c13;
+
+        }
+
+        p {
+
+            font-size: 1rem;
+
+            line-height: 1.8;
+
+            color: #352049;
+
+        }
+
+        a {
+
+            color: #6d3190;
+
+            text-decoration: none;
+
+            transition: color 0.3s, background 0.3s;
+
+        }
+
+        a:hover {
+
+            color: #4a1769;
+
+            text-decoration: underline;
+
+        }
+
+        /* ── Glass Card ── */
+
+        .glass {
+
+            background: rgba(255, 255, 255, 0.76);
+
+            backdrop-filter: blur(12px);
+
+            -webkit-backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(241, 205, 112, 0.5);
+
+            border-radius: 18px;
+
+            box-shadow: 0 18px 40px rgba(20, 6, 40, 0.24), 0 0 0 1px rgba(255, 222, 132, 0.12);
+
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+
+        }
+
+        .glass:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 24px 50px rgba(10, 30, 60, 0.2);
+
+        }
+
+        .custom-package-box {
+
+            margin-top: 14px;
+
+            padding: 18px;
+
+            border-radius: 16px;
+
+            background: linear-gradient(135deg, rgba(255, 225, 107, 0.5), rgba(255, 150, 186, 0.38), rgba(126, 224, 237, 0.42));
+
+            border: 1px solid rgba(255, 255, 255, 0.7);
+
+        }
+
+        /* ── Header ── */
+
+        header {
+
+            background: linear-gradient(120deg, #210b3d, #5d247e 58%, #8c5821);
+
+            color: #fff;
+
+            text-align: center;
+
+            padding: 48px 30px 36px;
+
+            border-bottom: 3px solid #e9c46a;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+        header::after {
+
+            content: '';
+
+            position: absolute;
+
+            top: -60%;
+
+            right: -20%;
+
+            width: 500px;
+
+            height: 500px;
+
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+        }
+
+        header h1 {
+
+            margin: 0 0 8px;
+
+            font-size: 2.8rem;
+
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+
+            letter-spacing: 2px;
+
+            position: relative;
+
+            z-index: 1;
+
+        }
+
+        header p {
+
+            margin: 0;
+
+            font-size: 1.1rem;
+
+            font-weight: 400;
+
+            color: rgba(255, 255, 255, 0.85);
+
+            font-style: italic;
+
+            letter-spacing: 1px;
+
+            position: relative;
+
+            z-index: 1;
+
+        }
+
+        /* ── Navigation ── */
+
+        nav {
+
+            background: rgba(35, 12, 63, 0.92);
+
+            backdrop-filter: blur(10px);
+
+            -webkit-backdrop-filter: blur(10px);
+
+            padding: 12px 0;
+
+            text-align: center;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 200;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+
+        }
+
+        nav a {
+
+            display: inline-block;
+
+            padding: 10px 22px;
+
+            margin: 0 6px;
+
+            font-weight: 600;
+
+            font-size: 0.95rem;
+
+            border-radius: 40px;
+
+            color: #e0edfa;
+
+            background: transparent;
+
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+
+            letter-spacing: 0.5px;
+
+        }
+
+        nav a:hover {
+
+            background: rgba(255, 255, 255, 0.15);
+
+            color: #ffffff;
+
+            transform: translateY(-1px);
+
+            text-decoration: none;
+
+        }
+
+        nav a:active {
+
+            background: rgba(255, 255, 255, 0.25);
+
+            transform: scale(0.96);
+
+        }
+
+        /* ── Forms Container ── */
+
+        .form-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 40px;
+
+            flex-wrap: wrap;
+
+            padding: 50px 30px;
+
+            max-width: 1200px;
+
+            margin: 30px auto 20px;
+
+        }
+
+        .form-container>div {
+
+            flex: 1 1 300px;
+
+            max-width: 380px;
+
+            padding: 32px 28px;
+
+            background: rgba(255, 255, 255, 0.78);
+
+            backdrop-filter: blur(14px);
+
+            -webkit-backdrop-filter: blur(14px);
+
+            border-radius: 18px;
+
+            border: 1px solid rgba(237, 199, 99, 0.5);
+
+            box-shadow: 0 20px 48px rgba(20, 6, 40, 0.2);
+
+            transition: transform 0.3s, box-shadow 0.3s;
+
+        }
+
+        .form-container>div:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow: 0 28px 56px rgba(10, 30, 60, 0.18);
+
+        }
+
+        .form-container h2 {
+
+            text-align: center;
+
+            margin-top: 0;
+
+            margin-bottom: 18px;
+
+            font-size: 1.6rem;
+
+            color: #0a2647;
+
+        }
+
+        .form-container label {
+
+            display: block;
+
+            margin-top: 14px;
+
+            font-weight: 600;
+
+            font-size: 0.9rem;
+
+            color: #1a3a5a;
+
+        }
+
+        .form-container input[type="email"],
+
+        .form-container input[type="password"],
+
+        .form-container input[type="text"] {
+
+            width: 100%;
+
+            padding: 10px 14px;
+
+            margin-top: 4px;
+
+            border: 1px solid rgba(60, 120, 180, 0.25);
+
+            border-radius: 12px;
+
+            font-size: 0.95rem;
+
+            background: rgba(255, 255, 255, 0.7);
+
+            backdrop-filter: blur(4px);
+
+            transition: border-color 0.3s, box-shadow 0.3s;
+
+            font-family: 'Manrope', sans-serif;
+
+        }
+
+        .form-container input:focus {
+
+            outline: none;
+
+            border-color: #2a6a9e;
+
+            box-shadow: 0 0 0 4px rgba(42, 106, 158, 0.15);
+
+        }
+
+        /* ── Sections ── */
+
+        .section {
+
+            margin: 24px auto;
+
+            padding: 32px 38px;
+
+            max-width: 1080px;
+
+            background: rgba(255, 255, 255, 0.78);
+
+            backdrop-filter: blur(12px);
+
+            -webkit-backdrop-filter: blur(12px);
+
+            border-radius: 18px;
+
+            border: 1px solid rgba(237, 199, 99, 0.52);
+
+            box-shadow: 0 16px 40px rgba(20, 6, 40, 0.2);
+
+            transition: transform 0.25s, box-shadow 0.3s;
+
+        }
+
+        .section:hover {
+
+            box-shadow: 0 20px 50px rgba(10, 30, 60, 0.12);
+
+        }
+
+        .section h2 {
+
+            margin-top: 0;
+
+            margin-bottom: 14px;
+
+            border-bottom: 3px solid #d9a441;
+
+            padding-bottom: 10px;
+
+        }
+
+        .section hr {
+
+            border: none;
+
+            border-top: 2px solid rgba(42, 106, 158, 0.15);
+
+            margin: 12px 0 18px;
+
+        }
+
+        .section p {
+
+            margin: 16px 0;
+
+        }
+
+        /* ── Hero Image ── */
+
+        .hero-img {
+
+            display: block;
+
+            margin: 20px auto;
+
+            width: 100%;
+
+            max-width: 700px;
+
+            height: 250px;
+
+            object-fit: cover;
+
+            border-radius: 18px;
+
+            box-shadow: 0 12px 28px rgba(10, 30, 60, 0.12);
+
+            transition: transform 0.4s, box-shadow 0.4s;
+
+        }
+
+        .hero-img:hover {
+
+            transform: scale(1.01);
+
+            box-shadow: 0 18px 40px rgba(10, 30, 60, 0.18);
+
+        }
+
+        /* ── Description List ── */
+
+        dl {
+
+            margin: 12px 0;
+
+        }
+
+        dt {
+
+            font-weight: 700;
+
+            font-size: 1.05rem;
+
+            color: #0d2b4e;
+
+            margin-top: 14px;
+
+        }
+
+        dd {
+
+            margin-left: 22px;
+
+            font-style: italic;
+
+            color: #1e3a5a;
+
+        }
+
+        /* ── Lists ── */
+
+        ol,
+
+        ul {
+
+            margin: 10px 0 10px 24px;
+
+            line-height: 1.9;
+
+        }
+
+        ol ol {
+
+            list-style-type: lower-alpha;
+
+        }
+
+        ul ul {
+
+            list-style-type: circle;
+
+        }
+
+        /* ── Table ── */
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 16px;
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+
+        }
+
+        table,
+
+        th,
+
+        td {
+
+            border: 1px solid rgba(42, 106, 158, 0.2);
+
+        }
+
+        th {
+
+            background: linear-gradient(135deg, #321050, #6d2f89);
+
+            color: #fff;
+
+            padding: 14px 18px;
+
+            text-align: center;
+
+            font-weight: 600;
+
+            font-size: 0.95rem;
+
+            letter-spacing: 0.5px;
+
+        }
+
+        td {
+
+            padding: 14px 18px;
+
+            background: rgba(255, 255, 255, 0.5);
+
+            backdrop-filter: blur(4px);
+
+            text-align: center;
+
+            color: #1a2a44;
+
+        }
+
+        tr:hover td {
+
+            background: rgba(42, 106, 158, 0.08);
+
+        }
+
+        /* ── Footer ── */
+
+        footer {
+
+            background: linear-gradient(135deg, #0a1a30, #0d2b4e, #1a4a7a);
+
+            color: #d0e2f5;
+
+            text-align: center;
+
+            padding: 30px 20px;
+
+            margin-top: 40px;
+
+            border-top: 2px solid rgba(255, 255, 255, 0.06);
+
+        }
+
+        footer p {
+
+            margin: 6px 0;
+
+            color: #b8d4f0;
+
+            font-size: 0.9rem;
+
+        }
+
+        footer a {
+
+            color: #8abce6;
+
+            font-weight: 500;
+
+        }
+
+        footer a:hover {
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+        }
+
+        /* ── Registration Header ── */
+
+        .reg-header {
+
+            background: linear-gradient(120deg, #2c0e4a, #70328e 65%, #9a6726);
+
+            color: #fff;
+
+            padding: 32px 28px;
+
+            text-align: center;
+
+            max-width: 1100px;
+
+            margin: 30px auto 20px;
+
+            border-radius: 28px;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            box-shadow: 0 16px 40px rgba(10, 30, 60, 0.15);
+
+        }
+
+        .reg-header h1 {
+
+            margin: 0 0 6px;
+
+            font-size: 2.2rem;
+
+        }
+
+        .reg-header p {
+
+            margin: 0;
+
+            color: rgba(255, 255, 255, 0.8);
+
+            font-style: italic;
+
+        }
+
+        /* ── Form Elements ── */
+
+        label {
+
+            display: block;
+
+            margin-top: 16px;
+
+            font-weight: 600;
+
+            font-size: 0.92rem;
+
+            color: #0d2b4e;
+
+        }
+
+        input[type="text"],
+
+        input[type="email"],
+
+        input[type="password"],
+
+        input[type="tel"],
+
+        input[type="date"],
+
+        input[type="number"],
+
+        input[type="url"],
+
+        input[type="search"],
+
+        input[type="time"],
+
+        input[type="week"],
+
+        input[type="month"],
+
+        select,
+
+        textarea {
+
+            width: 100%;
+
+            padding: 10px 14px;
+
+            margin-top: 4px;
+
+            border: 1px solid rgba(60, 120, 180, 0.2);
+
+            border-radius: 12px;
+
+            font-size: 0.95rem;
+
+            font-family: 'Manrope', sans-serif;
+
+            background: rgba(255, 255, 255, 0.6);
+
+            backdrop-filter: blur(4px);
+
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+
+        }
+
+        input:focus,
+
+        select:focus,
+
+        textarea:focus {
+
+            outline: none;
+
+            border-color: #2a6a9e;
+
+            box-shadow: 0 0 0 4px rgba(42, 106, 158, 0.12);
+
+            background: rgba(255, 255, 255, 0.8);
+
+        }
+
+        input[type="radio"],
+
+        input[type="checkbox"] {
+
+            margin-right: 6px;
+
+            margin-top: 8px;
+
+            transform: scale(1.15);
+
+            accent-color: #1a4a7a;
+
+        }
+
+        .radio-group,
+
+        .check-group {
+
+            margin-top: 6px;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 18px;
+
+            align-items: center;
+
+            font-size: 0.95rem;
+
+        }
+
+        .radio-group label,
+
+        .check-group label {
+
+            font-weight: 400;
+
+            margin-top: 0;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 4px;
+
+            color: #1a2a44;
+
+        }
+
+        textarea {
+
+            resize: vertical;
+
+            min-height: 80px;
+
+        }
+
+        progress {
+
+            width: 100%;
+
+            height: 20px;
+
+            margin-top: 6px;
+
+            border-radius: 20px;
+
+            accent-color: #1a4a7a;
+
+            background: rgba(42, 106, 158, 0.15);
+
+            overflow: hidden;
+
+        }
+
+        progress::-webkit-progress-bar {
+
+            background: rgba(42, 106, 158, 0.12);
+
+            border-radius: 20px;
+
+        }
+
+        progress::-webkit-progress-value {
+
+            background: linear-gradient(90deg, #2a6a9e, #6ba3d6);
+
+            border-radius: 20px;
+
+        }
+
+        progress::-moz-progress-bar {
+
+            background: linear-gradient(90deg, #2a6a9e, #6ba3d6);
+
+            border-radius: 20px;
+
+        }
+
+        fieldset {
+
+            border: 2px solid rgba(42, 106, 158, 0.2);
+
+            border-radius: 18px;
+
+            padding: 24px 28px;
+
+            margin-top: 10px;
+
+            background: rgba(255, 255, 255, 0.2);
+
+            backdrop-filter: blur(4px);
+
+        }
+
+        legend {
+
+            font-weight: 700;
+
+            font-size: 1.1rem;
+
+            color: #0a2647;
+
+            padding: 0 12px;
+
+            font-family: 'Cinzel', serif;
+
+        }
+
+        .btn-submit {
+
+            background: linear-gradient(135deg, #0a2647, #1a4a7a);
+
+            color: #fff;
+
+            border: none;
+
+            padding: 13px 36px;
+
+            font-size: 1rem;
+
+            font-weight: 600;
+
+            border-radius: 40px;
+
+            cursor: pointer;
+
+            transition: transform 0.25s, box-shadow 0.3s, background 0.3s;
+
+            margin-top: 18px;
+
+            margin-right: 10px;
+
+            letter-spacing: 0.5px;
+
+            box-shadow: 0 6px 18px rgba(10, 38, 71, 0.2);
+
+        }
+
+        .btn-submit:hover {
+
+            background: linear-gradient(135deg, #1a4a7a, #2a6a9e);
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 10px 28px rgba(10, 38, 71, 0.25);
+
+        }
+
+        .btn-submit:active {
+
+            transform: scale(0.97);
+
+        }
+
+        .btn-reset {
+
+            background: rgba(200, 215, 235, 0.6);
+
+            backdrop-filter: blur(4px);
+
+            color: #1a2a44;
+
+            border: 1px solid rgba(42, 106, 158, 0.15);
+
+            padding: 12px 28px;
+
+            font-size: 0.95rem;
+
+            font-weight: 500;
+
+            border-radius: 40px;
+
+            cursor: pointer;
+
+            transition: background 0.3s, transform 0.2s;
+
+            margin-top: 18px;
+
+        }
+
+        .btn-reset:hover {
+
+            background: rgba(180, 200, 225, 0.7);
+
+            transform: translateY(-2px);
+
+        }
+
+        .btn-reset:active {
+
+            transform: scale(0.97);
+
+        }
+
+        /* ── Audio & Video ── */
+
+        audio,
+
+        video {
+
+            margin-top: 10px;
+
+            width: 100%;
+
+            border-radius: 16px;
+
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+
+        }
+
+        iframe {
+
+            border: none;
+
+            border-radius: 18px;
+
+            margin-top: 10px;
+
+            box-shadow: 0 8px 24px rgba(10, 30, 60, 0.08);
+
+        }
+
+        .banner-img {
+
+            display: block;
+
+            width: 100%;
+
+            max-width: 600px;
+
+            border-radius: 18px;
+
+            margin: 16px auto;
+
+            box-shadow: 0 12px 28px rgba(10, 30, 60, 0.1);
+
+            transition: transform 0.4s;
+
+        }
+
+        .banner-img:hover {
+
+            transform: scale(1.01);
+
+        }
+
+        /* ── Gallery ── */
+
+        .gallery {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 16px;
+
+            justify-content: center;
+
+            margin-top: 12px;
+
+        }
+
+        .gallery img {
+
+            width: 260px;
+
+            height: 170px;
+
+            object-fit: cover;
+
+            border-radius: 16px;
+
+            box-shadow: 0 6px 18px rgba(10, 30, 60, 0.08);
+
+            transition: transform 0.35s, box-shadow 0.35s;
+
+            border: 2px solid rgba(255, 255, 255, 0.4);
+
+        }
+
+        .gallery img:hover {
+
+            transform: scale(1.04) rotate(-0.5deg);
+
+            box-shadow: 0 14px 32px rgba(10, 30, 60, 0.16);
+
+        }
+
+        .about-showcase {
+
+            display: grid;
+
+            grid-template-columns: 1.45fr 1fr 1fr;
+
+            gap: 14px;
+
+            margin-top: 22px;
+
+        }
+
+        .about-showcase figure {
+
+            position: relative;
+
+            min-height: 190px;
+
+            overflow: hidden;
+
+            border: 2px solid rgba(225, 184, 82, 0.8);
+
+            border-radius: 14px;
+
+            box-shadow: 0 10px 24px rgba(28, 7, 48, 0.22);
+
+        }
+
+        .about-showcase figure:first-child { grid-row: span 2; min-height: 394px; }
+
+        .about-showcase img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+
+        .about-showcase figure:hover img { transform: scale(1.06); }
+
+        .about-showcase figcaption {
+
+            position: absolute;
+
+            right: 0; bottom: 0; left: 0;
+
+            padding: 24px 14px 12px;
+
+            color: #fff7df;
+
+            font-size: .82rem;
+
+            font-weight: 700;
+
+            background: linear-gradient(transparent, rgba(28, 7, 48, .9));
+
+        }
+
+        /* ── Responsive ── */
+
+        @media (max-width: 768px) {
+
+            header h1 {
+
+                font-size: 2rem;
+
+            }
+
+            .form-container {
+
+                flex-direction: column;
+
+                align-items: center;
+
+                padding: 30px 16px;
+
+            }
+
+            .form-container>div {
+
+                max-width: 100%;
+
+                width: 100%;
+
+            }
+
+            .section {
+
+                padding: 22px 18px;
+
+                margin: 16px 12px;
+
+            }
+
+            .reg-header {
+
+                margin: 16px 12px;
+
+                padding: 22px 16px;
+
+            }
+
+            .reg-header h1 {
+
+                font-size: 1.6rem;
+
+            }
+
+            nav a {
+
+                padding: 8px 14px;
+
+                font-size: 0.85rem;
+
+                margin: 0 4px;
+
+            }
+
+            .gallery img {
+
+                width: 160px;
+
+                height: 110px;
+
+            }
+
+            .hero-img {
+
+                height: 170px;
+
+            }
+
+            .about-showcase { grid-template-columns: 1fr 1fr; }
+
+            .about-showcase figure:first-child { grid-column: span 2; grid-row: auto; min-height: 240px; }
+
+            fieldset {
+
+                padding: 18px 14px;
+
+            }
+
+            .radio-group,
+
+            .check-group {
+
+                gap: 10px;
+
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            header h1 {
+
+                font-size: 1.6rem;
+
+            }
+
+            nav a {
+
+                padding: 6px 10px;
+
+                font-size: 0.75rem;
+
+                margin: 0 2px;
+
+            }
+
+            .btn-submit,
+
+            .btn-reset {
+
+                width: 100%;
+
+                margin-right: 0;
+
+                text-align: center;
+
+            }
+
+            .gallery img {
+
+                width: 130px;
+
+                height: 90px;
+
+            }
+
+        }
+
+    
+        /* Ex.No.07 - jQuery practical activities */
+        #jquery-lab { padding: 28px 5%; background: linear-gradient(135deg,#fff7fc,#f1f5ff); }
+        #jquery-lab .lab-intro { text-align:center; color:#6d3190; margin-bottom:22px; }
+        .jquery-lab-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:22px; max-width:1200px; margin:auto; }
+        .jquery-card { background:#fff; border:1px solid #eadcf5; border-radius:18px; padding:22px; box-shadow:0 8px 24px #39205b12; }
+        .jquery-card h3 { color:#6d3190; margin-top:0; }
+        .jquery-card label { display:block; font-weight:700; margin:12px 0 5px; }
+        .jquery-card input,.jquery-card select { box-sizing:border-box; width:100%; padding:10px; border:1px solid #d7c6e7; border-radius:8px; font:inherit; }
+        .jquery-card button { margin-top:14px; border:0; border-radius:9px; padding:11px 15px; background:#6d3190; color:#fff; font-weight:700; cursor:pointer; }
+        .jquery-card button:hover { background:#492064; }
+        .lab-result { margin-top:14px; padding:12px; background:#f5effb; border-radius:9px; color:#40205c; min-height:22px; }
+        .event-preview { margin-top:16px; min-height:190px; border-radius:16px; padding:22px 16px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#fff; background:linear-gradient(135deg,#6d3190,#b83280); transition:background .25s,transform .25s; box-shadow:inset 0 0 0 2px #ffffff55; }
+        .event-preview .preview-icon { font-size:42px; line-height:1.2; margin-bottom:8px; }
+        .event-preview h4 { font-size:1.4rem; margin:5px 0; }
+        .event-preview p { margin:5px 0; }
+        .event-preview .preview-tag { margin-top:10px; padding:6px 12px; border:1px solid #ffffffbb; border-radius:999px; font-size:.85rem; }
+        .event-preview.glitter { background-image:radial-gradient(#ffffffaa 1px,transparent 1px),linear-gradient(135deg,var(--theme-color),#24123c); background-size:18px 18px,cover; }
+        .event-preview.floral { background-image:radial-gradient(circle at 15% 20%,#ffffff55 0 5px,transparent 6px),radial-gradient(circle at 85% 75%,#ffffff55 0 7px,transparent 8px),linear-gradient(135deg,var(--theme-color),#f2a6c4); }
+        .event-preview.elegant { background-image:linear-gradient(135deg,var(--theme-color),#242038); border:3px double #f7df9b; }
+        @media(max-width:600px){ #jquery-lab{padding:22px 12px}.jquery-card{padding:17px} }
+
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+
+
+<body>
+
+    <!-- ════════════════════════════════════════
+
+    PAGE 1 — Main Website
+
+    ════════════════════════════════════════ -->
+
+    <!-- Header -->
+
+    <header id="top">
+
+        <h1>EventSphere</h1>
+
+        <p>Creating Memorable Events with Style &amp; Perfection</p>
+
+    </header>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <a href="#about">About</a>
+
+        <a href="#services">Services</a>
+
+        <a href="#packages">Packages</a>
+
+        <a href="#contact">Contact</a>
+
+        <a href="#registration">Register</a>
+
+    </nav>
+
+    <!-- Sign In / Sign Up -->
+
+    <div class="form-container">
+
+        <div>
+
+            <h2>Welcome Back</h2>
+
+            <label>Email</label>
+
+            <input type="email" placeholder="you@example.com" />
+
+            <label>Password</label>
+
+            <input type="password" placeholder="Enter password" />
+
+            <br /><br />
+
+            <input type="submit" value="Sign In" class="btn-submit" style="width:100%;" />
+
+        </div>
+
+        <div>
+
+            <h2>Create Account</h2>
+
+            <label>Full Name</label>
+
+            <input type="text" placeholder="Your name" />
+
+            <label>Email</label>
+
+            <input type="email" placeholder="you@example.com" />
+
+            <label>Password</label>
+
+            <input type="password" placeholder="Create a password" />
+
+            <br /><br />
+
+            <input type="submit" value="Create Account" class="btn-submit" style="width:100%;" />
+
+        </div>
+
+    </div>
+
+    <!-- About -->
+
+    <div class="section" id="about">
+
+        <h2>About Us</h2>
+
+        <p>EventSphere is a professional event management company that orchestrates weddings, corporate meetings, birthday parties, concerts, and college festivals with elegance and precision.</p>
+
+        <p>We bring together creative planning, stunning decor, curated catering, professional photography, and top-tier entertainment to craft experiences that linger in memory.</p>
+
+        <p><a href="#packages">→ View our event packages</a></p>
+
+        <p><a href="#top">↑ Back to top</a></p>
+
+        <div class="about-showcase" aria-label="EventSphere event highlights">
+
+            <figure><img src="Screenshot 2026-07-15 212622.png" alt="Elegant floral wedding stage" /><figcaption>Curated wedding settings</figcaption></figure>
+
+            <figure><img src="Screenshot 2026-07-15 212600.png" alt="Elegant dinner event table" /><figcaption>Refined dining experiences</figcaption></figure>
+
+            <figure><img src="Screenshot 2026-07-15 212809.png" alt="Birthday celebration display" /><figcaption>Joyful birthday celebrations</figcaption></figure>
+
+        </div>
+
+    </div>
+
+    <!-- Services -->
+
+    <div class="section" id="services">
+
+        <h2>Our Services</h2>
+
+        <hr />
+
+        <h3>What We Offer</h3>
+
+        <dl>
+
+            <dt>Wedding Planning</dt>
+
+            <dd>Elegant decor, coordinated timelines, and attentive management for your dream wedding.</dd>
+
+            <dt>Corporate Events</dt>
+
+            <dd>Professional conferences, seminars, and branded meetings that leave a lasting impression.</dd>
+
+            <dt>Birthday Parties</dt>
+
+            <dd>Themed celebrations with custom cakes, entertainment, and joyful surprises.</dd>
+
+        </dl>
+
+        <h3>Event Planning Process</h3>
+
+        <ol>
+
+            <li>Planning
+
+                <ol>
+
+                    <li>Venue Selection &amp; Booking</li>
+
+                    <li>Budget &amp; Timeline Preparation</li>
+
+                </ol>
+
+            </li>
+
+            <li>Execution
+
+                <ol>
+
+                    <li>Decoration &amp; Setup</li>
+
+                    <li>On‑site Coordination &amp; Management</li>
+
+                </ol>
+
+            </li>
+
+        </ol>
+
+        <h3>What's Included</h3>
+
+        <ul>
+
+            <li>Entertainment
+
+                <ul>
+
+                    <li>Professional DJ</li>
+
+                    <li>Live Band</li>
+
+                </ul>
+
+            </li>
+
+            <li>Catering
+
+                <ul>
+
+                    <li>Vegetarian Menu</li>
+
+                    <li>Non‑Vegetarian Menu</li>
+
+                </ul>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- Packages -->
+
+    <div class="section" id="packages">
+
+        <h2>Event Packages</h2>
+
+        <hr />
+
+        <table>
+
+            <tr>
+
+                <th>Package</th>
+
+                <th>Suitable For</th>
+
+                <th>Price</th>
+
+            </tr>
+
+            <tr>
+
+                <td>Silver</td>
+
+                <td>Birthday Parties</td>
+
+                <td>₹20,000</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Gold</td>
+
+                <td>Weddings</td>
+
+                <td>₹75,000</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Platinum</td>
+
+                <td>Corporate Events</td>
+
+                <td>₹1,50,000</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- Contact -->
+
+    <div class="section" id="contact">
+
+        <h2>Contact Us</h2>
+
+        <hr />
+
+        <p>📧 Email: <a href="mailto:eventsphere@gmail.com">eventsphere@gmail.com</a></p>
+
+        <p>📞 Phone: <a href="tel:+919876543210">+91 98765 43210</a></p>
+
+        <p>📍 Location: Coimbatore, Tamil Nadu</p>
+
+    </div>
+
+    <!-- ════════════════════════════════════════
+
+    PAGE 2 — Registration Portal
+
+    ════════════════════════════════════════ -->
+
+        <!-- Available Packages Table -->
+
+    <div class="section">
+
+        <h2>Available Packages</h2>
+
+        <hr />
+
+        <table>
+
+            <tr>
+
+                <th>Package</th>
+
+                <th>Duration</th>
+
+                <th>Price</th>
+
+            </tr>
+
+            <tr>
+
+                <td>Silver</td>
+
+                <td>1 Day</td>
+
+                <td>₹10,000</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Gold</td>
+
+                <td>2 Days</td>
+
+                <td>₹25,000</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Platinum</td>
+
+                <td>3 Days</td>
+
+                <td>₹50,000</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- Audio -->
+
+    <div class="section">
+
+        <h2>Background Music</h2>
+
+        <p style="font-style:normal; margin:0 0 8px;">Listen to our event highlight track:</p>
+
+        <audio controls>
+
+            <source src="1.mp3" type="audio/mpeg" />
+
+            Your browser does not support the audio element.
+
+        </audio>
+
+    </div>
+
+    <!-- Video -->
+
+    <div class="section">
+
+        <h2>Promotional Video</h2>
+
+        <p style="font-style:normal; margin:0 0 8px;">Watch our event highlights:</p>
+
+        <video controls style="max-width:700px; width:100%; border-radius:16px;">
+
+            <source src="1.mp4" type="video/mp4" />
+
+            Your browser does not support the video element.
+
+        </video>
+
+    </div>
+
+    <!-- Gallery -->
+
+    <div class="section">
+
+        <h2>Event Inspiration Gallery</h2>
+
+        <p style="font-style:normal; margin:0 0 14px;">Reference images to spark your vision:</p>
+
+        <div class="gallery">
+
+            <img src="Screenshot 2026-07-15 212600.png" alt="Floral wedding stage" />
+
+            <img src="Screenshot 2026-07-15 212622.png" alt="White and green wedding backdrop" />
+
+            <img src="Screenshot 2026-07-15 212753.png" alt="Lakeside floral ceremony" />
+
+            <img src="Screenshot 2026-07-15 212809.png" alt="Pastel birthday celebration" />
+
+            <img src="Screenshot 2026-07-15 212820.png" alt="Pink and gold birthday decor" />
+
+            <img src="Screenshot 2026-08-20 112737.png" alt="Floral garden seating arrangement" />
+
+            <img src="Screenshot 2026-08-20 112744.png" alt="Yellow floral wedding stage" />
+
+            <img src="Screenshot 2026-08-20 112759.png" alt="Golden ceremonial decor" />
+
+            <img src="Screenshot 2026-08-20 112812.png" alt="White decorated event tent" />
+
+            <img src="Screenshot 2026-08-20 112819.png" alt="Elegant banquet table setting" />
+
+            <img src="Screenshot 2026-08-20 112831.png" alt="Outdoor red floral mandap" />
+
+            <img src="Screenshot 2026-08-20 112848.png" alt="Couple at floral wedding arch" />
+
+            <img src="Screenshot 2026-08-20 112855.png" alt="Mountain wedding ceremony arch" />
+
+        </div>
+
+    </div>
+
+    <!-- Map -->
+
+    <div class="section">
+
+        <h2>Our Location</h2>
+
+        <iframe
+
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125322.17673946395!2d76.89505615!3d11.0016865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859af2f971cb5%3A0x2fc1c81e183ed282!2sCoimbatore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1691000000000!5m2!1sen!2sin"
+
+            width="100%"
+
+            height="350"
+
+            allowfullscreen=""
+
+            loading="lazy"
+
+            referrerpolicy="no-referrer-when-downgrade"
+
+        ></iframe>
+
+    </div>
+
+    <!-- Registration Header -->
+
+    <div class="reg-header" id="registration">
+
+        <h1>EventSphere Registration Portal</h1>
+
+        <p>Secure your spot at our upcoming events</p>
+
+    </div>
+
+    <!-- About Registration -->
+
+    <div class="section">
+
+        <h2>About Registration</h2>
+
+        <p style="margin:0 0 12px; font-style:normal;">Complete the form below to register for your preferred event. Choose your package and upload the necessary documents.</p>
+
+        <img class="banner-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600" alt="Event celebration banner" />
+
+    </div>
+
+    <!-- Registration Form -->
+
+    <div class="section">
+
+        <h2>Registration Form</h2>
+
+        <hr />
+
+        <form action="#" method="get" enctype="multipart/form-data">
+
+            <fieldset>
+
+                <legend>Participant Details</legend>
+
+                <label for="fname">Full Name *</label>
+
+                <input type="text" id="fname" name="fname" placeholder="Enter your full name" required />
+
+                <label for="email">Email *</label>
+
+                <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+                <label for="pwd">Password</label>
+
+                <input type="password" id="pwd" name="pwd" placeholder="Create a password" />
+
+                <label for="phone">Phone Number</label>
+
+                <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" />
+
+                <label for="dob">Date of Birth</label>
+
+                <input type="date" id="dob" name="dob" />
+
+                <label for="age">Age</label>
+
+                <input type="number" id="age" name="age" min="1" max="120" placeholder="Enter your age" />
+
+                <label>Gender</label>
+
+                <div class="radio-group">
+
+                    <label><input type="radio" name="gender" value="male" /> Male</label>
+
+                    <label><input type="radio" name="gender" value="female" /> Female</label>
+
+                    <label><input type="radio" name="gender" value="other" /> Other</label>
+
+                </div>
+
+                <label>Interests</label>
+
+                <div class="check-group">
+
+                    <label><input type="checkbox" name="interest" value="music" /> Music</label>
+
+                    <label><input type="checkbox" name="interest" value="dance" /> Dance</label>
+
+                    <label><input type="checkbox" name="interest" value="dj" /> dj</label>
+
+                    <label><input type="checkbox" name="interest" value="singing" /> singing </label>
+
+                </div>
+
+                <label for="event">Select Event</label>
+
+                <select id="event" name="event">
+
+                    <option>— Choose an Event —</option>
+
+                     <option>Wedding Expo</option>
+
+                     <option>Corporate Meet</option>
+
+                     <option>Birthday Carnival</option>
+
+                     <option>College Fest</option>
+
+                     <option>Music Concert</option>
+
+                     <option>Fashion Show</option>
+
+                     <option>Engagement Ceremony</option>
+
+                     <option>Baby Shower</option>
+
+                     <option>Anniversary Celebration</option>
+
+                     <option>Product Launch</option>
+
+                     <option>Charity Gala</option>
+
+                     <option>New Year Party</option>
+
+                     <option>Sports Tournament</option>
+
+                     <option>Graduation Party</option>
+
+                     <option>Family Reunion</option>
+
+                </select>
+
+                 <label for="package">Select Package *</label>
+
+                <select id="package" name="package" required>
+
+                <option value="">— Choose a Package —</option>
+
+                <option value="Silver">Silver — ₹10,000</option>
+
+                <option value="Gold">Gold — ₹25,000</option>
+
+                <option value="Platinum">Platinum — ₹50,000</option>
+
+                <option value="Custom">Custom Package</option>
+
+             </select>
+
+<div id="customPriceBox" style="display: none; margin-top: 15px;">
+
+    <label for="customPrice">Enter Your Custom Price (₹) *</label>
+
+    <input
+
+        type="number"
+
+        id="customPrice"
+
+        name="customPrice"
+
+        min="1"
+
+        placeholder="Enter your budget"
+
+    />
+
+    <label for="customRequest">Custom Package Requirements</label>
+
+    <textarea
+
+        id="customRequest"
+
+        name="customRequest"
+
+        rows="4"
+
+        placeholder="Describe your event requirements..."
+
+    ></textarea>
+
+</div>
+
+                <label for="search">Search Event</label>
+
+                <input type="search" id="search" name="search" placeholder="Type to search…" />
+
+                <label for="ptime">Preferred Time</label>
+
+                <input type="time" id="ptime" name="ptime" />
+
+                <label for="pweek">Preferred Week</label>
+
+                <input type="week" id="pweek" name="pweek" />
+
+                <label for="pmonth">Preferred Month</label>
+
+                <input type="month" id="pmonth" name="pmonth" />
+
+                <label for="feedback">Feedback / Special Requests</label>
+
+                <textarea id="feedback" name="feedback" rows="5" placeholder="Write your message here…"></textarea>
+
+                <label>Booking Progress</label>
+
+                <progress value="70" max="100"></progress>
+
+                <p style="margin:4px 0 0; font-size:0.85rem; color:#1a4a7a;">70% complete</p>
+
+                <br />
+
+                <input type="submit" value="Register Now" class="btn-submit" />
+
+                <input type="reset" value="Clear Form" class="btn-reset" />
+
+            </fieldset>
+
+        </form>
+
+    </div>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>&copy; 2026 EventSphere — Crafted with &hearts; using HTML5 &amp; CSS3</p>
+
+        <p><a href="#top">↑ Go to Top</a></p>
+
+
+    </footer>
+
+
+    <!-- EventSphere Interactive Experience -->
+    <style>
+        #javascript-demo, #event-team, #reviews {
+            width: calc(100% - 30px);
+            max-width: 1100px;
+            margin: 28px auto;
+            padding: 30px;
+            background: rgba(255,255,255,.96);
+            border: 2px solid #e9c46a;
+            border-radius: 22px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.16);
+            box-sizing: border-box;
+        }
+        #javascript-demo h2, #event-team h2, #reviews h2 {
+            text-align: center;
+            color: #6d3190;
+            font-weight: 900;
+            margin-bottom: 14px;
+        }
+        .interactive-subtitle { text-align:center; color:#70448a; margin-bottom:22px; }
+        #eventClock {
+            text-align:center; font-size:30px; font-weight:900; color:#6d3190;
+            background:linear-gradient(135deg,#fff0c2,#f5ddff);
+            border-radius:15px; padding:18px; margin:20px 0;
+        }
+        #clockDate { display:block; font-size:14px; margin-top:5px; }
+        .flower-garden {
+            padding:18px; margin:20px 0; border:2px solid #e9c46a;
+            border-radius:18px; background:linear-gradient(180deg,#fff4fa,#e2f5d8);
+        }
+        .flower-garden h3 { color:#6d3190; text-align:center; margin-bottom:12px; }
+        #flowerContainer {
+            position:relative; height:130px; width:100%; overflow:hidden;
+            border-radius:14px; border:1px solid #c5d8a4;
+            background:linear-gradient(180deg,#dff4ff 0%,#f4fbe7 72%,#c8e6a5 73%);
+        }
+        #flower {
+            position:absolute; left:0; bottom:15px; font-size:58px; line-height:1;
+            transform-origin:center; user-select:none; will-change:left,transform;
+        }
+        .flower-controls, .background-options {
+            display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:18px;
+        }
+        .flower-btn {
+            padding:11px 22px; border:0; border-radius:25px;
+            background:linear-gradient(135deg,#4b176f,#8e44ad);
+            color:#fff; font-weight:800; cursor:pointer; transition:transform .25s,box-shadow .25s;
+        }
+        .flower-btn:hover { transform:translateY(-3px); box-shadow:0 6px 16px #4b176f40; }
+        .flower-btn.reset { background:linear-gradient(135deg,#9a5b12,#e9c46a); color:#35104f; }
+        #flowerStatus { text-align:center; margin-top:12px; color:#6d3190; font-weight:bold; }
+        .bg-color-btn {
+            border:2px solid #e9c46a; border-radius:24px; padding:10px 16px;
+            font-weight:bold; cursor:pointer; transition:transform .2s;
+        }
+        .bg-color-btn:hover { transform:scale(1.06); }
+        .event-message-box {
+            margin-top:12px; padding:25px; border:2px solid #e9c46a;
+            border-radius:18px; text-align:center;
+            background:linear-gradient(135deg,#f5e8ff,#fff0c2,#ffe3ed);
+            box-shadow:0 8px 20px #4b176f1f;
+        }
+        #eventMessage {
+            color:#6d3190; font-size:19px; font-weight:800; line-height:1.8;
+            cursor:pointer; transition:transform .3s,color .3s,font-size .3s;
+        }
+        #eventMessage:hover { color:#a34c80; transform:scale(1.02); }
+        .team-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:20px; margin-top:25px;
+        }
+        .team-card {
+            padding:25px 16px; text-align:center; color:white;
+            border:2px solid #e9c46a; border-radius:20px;
+            background:linear-gradient(135deg,#4b176f,#8e44ad);
+            box-shadow:0 8px 22px #4b176f38;
+            transition:transform .3s,box-shadow .3s; overflow-wrap:anywhere;
+        }
+        .team-card:nth-child(3n + 2) { background:linear-gradient(135deg,#7b245c,#c44e87); }
+        .team-card:nth-child(3n) { background:linear-gradient(135deg,#70431a,#b98232); }
+        .team-card:hover { transform:translateY(-7px); box-shadow:0 14px 28px #4b176f4d; }
+        .team-icon { font-size:46px; margin-bottom:10px; }
+        .team-card h3 { color:#fff4c7; margin-bottom:8px; }
+        .team-role {
+            display:inline-block; background:#ffe39a; color:#4b176f;
+            padding:7px 12px; border-radius:25px; font-size:13px; font-weight:900; margin:8px 0 12px;
+        }
+        .team-contact { margin-top:10px; padding-top:12px; border-top:1px solid #ffffff70; line-height:1.9; font-size:13px; }
+        .team-contact a { color:#fff4c7; font-weight:bold; overflow-wrap:anywhere; }
+        #reviewForm {
+            padding:22px; border-radius:16px; background:linear-gradient(135deg,#fff7e3,#f6eaff);
+            border:1px solid #e9c46a;
+        }
+        #reviews label { display:block; margin:14px 0 5px; color:#4b176f; font-weight:800; }
+        #reviews input, #reviews textarea, #reviews select {
+            width:100%; padding:12px; border:1px solid #cbb7d9; border-radius:10px;
+            font:inherit; box-sizing:border-box; background:#fff;
+        }
+        #reviews textarea { resize:vertical; }
+        .review-submit {
+            margin-top:18px; padding:13px 25px; border:0; border-radius:25px;
+            background:linear-gradient(135deg,#4b176f,#8e44ad); color:white;
+            font-weight:900; cursor:pointer;
+        }
+        .review-submit:hover { background:linear-gradient(135deg,#8e44ad,#b98232); }
+        .review-card {
+            margin-top:16px; padding:18px; border-left:5px solid #8e44ad;
+            border-radius:12px; background:#f8f0ff; overflow-wrap:anywhere;
+        }
+        .review-card h3 { color:#6d3190; }
+        .review-stars { color:#b98232; font-size:20px; letter-spacing:2px; }
+        #reviewMessage { color:#4b176f; font-weight:bold; margin-top:12px; }
+        @media(max-width:600px) {
+            #javascript-demo,#event-team,#reviews { padding:20px 15px; }
+            #eventClock { font-size:24px; }
+            .flower-btn { padding:10px 16px; }
+        }
+        /* Selected colour is applied to the page background overlay. */
+        body::before { transition:background .4s ease; }
+    </style>
+
+    <section id="javascript-demo">
+        <h2>✨ EventSphere Interactive Experience ✨</h2>
+        <p class="interactive-subtitle">Explore our celebration garden, enjoy the animations, and discover the magic behind every memorable event.</p>
+
+        <h3 style="text-align:center;color:#6d3190;">🕒 Event Time</h3>
+        <div id="eventClock">
+            <span id="clockTime">Loading time...</span>
+            <span id="clockDate"></span>
+        </div>
+
+        <div class="flower-garden">
+            <h3>🌸 EventSphere Flower Garden 🌸</h3>
+            <p style="text-align:center;">Use the controls to move, stop, reset, or animate the flower.</p>
+            <div id="flowerContainer">
+                <span id="flower" role="img" aria-label="Animated flower">🌸</span>
+            </div>
+            <div class="flower-controls">
+                <button type="button" class="flower-btn" onclick="moveFlower()">▶ Move</button>
+                <button type="button" class="flower-btn" onclick="stopFlower()">⏸ Stop</button>
+                <button type="button" class="flower-btn reset" onclick="resetFlower()">↩ Reset</button>
+                <button type="button" class="flower-btn" onclick="animateFlower()">✨ Animate</button>
+            </div>
+            <p id="flowerStatus" aria-live="polite">Flower is ready to move!</p>
+        </div>
+
+        <h3 style="text-align:center;color:#6d3190;">🎨 Choose Your Background</h3>
+        <p style="text-align:center;">Choose a colour to change the page background.</p>
+        <div class="background-options">
+            <button type="button" class="bg-color-btn" style="background:#3d1765;color:white" onclick="changeEventBackground('#3d1765','Royal Purple')">Royal Purple</button>
+            <button type="button" class="bg-color-btn" style="background:#f8dce8;color:#542344" onclick="changeEventBackground('#f8dce8','Blush Pink')">Blush Pink</button>
+            <button type="button" class="bg-color-btn" style="background:#d9ead3;color:#23452b" onclick="changeEventBackground('#d9ead3','Sage Green')">Sage Green</button>
+            <button type="button" class="bg-color-btn" style="background:#dbeafe;color:#183b65" onclick="changeEventBackground('#dbeafe','Sky Blue')">Sky Blue</button>
+            <button type="button" class="bg-color-btn" style="background:#fff0c2;color:#5c4311" onclick="changeEventBackground('#fff0c2','Champagne Gold')">Champagne Gold</button>
+            <button type="button" class="bg-color-btn" style="background:#fff;color:#333" onclick="changeEventBackground('#ffffff','Classic White')">Classic White</button>
+        </div>
+        <p id="colorMessage" style="text-align:center;color:#6d3190;font-weight:bold;">Current theme: Original EventSphere</p>
+
+        <h3 style="text-align:center;color:#6d3190;margin-top:28px;">💌 Interactive Event Message</h3>
+        <div class="event-message-box">
+            <p id="eventMessage" onmouseenter="increaseEventMessage()" onmouseleave="decreaseEventMessage()">
+                Every celebration tells a beautiful story! ✨<br>
+                Let EventSphere turn your dream event into an unforgettable memory. 💜<br>
+                <small>Move your cursor over this message!</small>
+            </p>
+        </div>
+    </section>
+
+
+    <section id="jquery-lab">
+        <h2 style="text-align:center;color:#6d3190;">🧪 Ex.No:07 — Working with jQuery</h2>
+        <p class="lab-intro">Interactive practicals: Budget Calculator, Cake Order Calculator and Event Theme Designer.</p>
+        <div class="jquery-lab-grid">
+            <div class="jquery-card">
+                <h3>💰 1. Budget Calculator</h3>
+                <label for="budgetAmount">Total Amount (₹)</label><input type="number" id="budgetAmount" min="0" step="0.01" placeholder="Enter your total budget">
+                <label for="rentPercent">Room Rent (%)</label><input type="number" id="rentPercent" min="0" max="100" value="30">
+                <label for="accessoryPercent">Accessories (%)</label><input type="number" id="accessoryPercent" min="0" max="100" value="20">
+                <label for="emergencyPercent">Emergency (%)</label><input type="number" id="emergencyPercent" min="0" max="100" value="10">
+                <label for="savingPercent">Savings (%)</label><input type="number" id="savingPercent" min="0" max="100" value="40">
+                <button type="button" id="evaluateBudget">Evaluate My Money</button>
+                <div class="lab-result" id="budgetResult" aria-live="polite">Your budget breakdown will appear here.</div>
+            </div>
+            <div class="jquery-card">
+                <h3>🎂 2. Cake Order Calculator</h3>
+                <label for="cakeType">Choose Cake</label><select id="cakeType"><option value="500">Chocolate Cake — ₹500/kg</option><option value="450">Vanilla Cake — ₹450/kg</option><option value="600">Red Velvet Cake — ₹600/kg</option><option value="700">Black Forest Cake — ₹700/kg</option></select>
+                <label for="cakeWeight">Weight (kg)</label><input type="number" id="cakeWeight" min="0.5" step="0.5" value="1">
+                <label for="cakeEgg">Cake Type</label><select id="cakeEgg"><option value="0">Regular</option><option value="100">Eggless (+₹100)</option></select>
+                <label for="cakeMessage">Cake Message (optional)</label><input type="text" id="cakeMessage" maxlength="60" placeholder="Happy Birthday!">
+                <button type="button" id="calculateCake">Calculate Cake Order</button>
+                <div class="lab-result" id="cakeResult" aria-live="polite">Your cake order total will appear here.</div>
+            </div>
+            <div class="jquery-card">
+                <h3>🎉 3. Event Theme Designer</h3>
+                <p>Customize a celebration theme and preview your EventSphere event card instantly.</p>
+                <label for="eventTypeTheme">Choose Event Type</label>
+                <select id="eventTypeTheme"><option value="Wedding Celebration|💍">Wedding Celebration</option><option value="Birthday Party|🎂">Birthday Party</option><option value="Corporate Gala|🥂">Corporate Gala</option><option value="College Fest|🎓">College Fest</option><option value="Music Concert|🎤">Music Concert</option><option value="Baby Shower|🧸">Baby Shower</option></select>
+                <label for="eventThemeColor">Theme Colour</label>
+                <select id="eventThemeColor"><option value="#6d3190">Royal Purple</option><option value="#b83280">Blush Pink</option><option value="#267d68">Sage Green</option><option value="#1976d2">Sky Blue</option><option value="#b8860b">Champagne Gold</option><option value="#c0392b">Ruby Red</option></select>
+                <label for="eventDecorStyle">Decoration Style</label>
+                <select id="eventDecorStyle"><option value="classic">Classic</option><option value="floral">Floral Garden</option><option value="glitter">Glamour &amp; Glitter</option><option value="elegant">Elegant Evening</option></select>
+                <label for="eventThemeTitle">Event Heading</label>
+                <input type="text" id="eventThemeTitle" maxlength="50" value="A Celebration to Remember" placeholder="Enter your event heading">
+                <div class="event-preview" id="eventThemePreview" aria-live="polite"><div class="preview-icon">💍</div><h4>A Celebration to Remember</h4><p>Wedding Celebration</p><span class="preview-tag">Planned with EventSphere ✨</span></div>
+                <div class="lab-result" id="eventThemeResult" aria-live="polite">Your event theme preview updates as you make changes.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="event-team">
+        <h2>👑 Meet Our Event Team 👑</h2>
+        <p class="interactive-subtitle">Meet the creative planners and professionals who bring every EventSphere celebration to life.</p>
+        <div id="teamMembers" class="team-grid"></div>
+    </section>
+
+    <section id="reviews">
+        <h2>⭐ Share Your Event Review ⭐</h2>
+        <p class="interactive-subtitle">Your feedback helps us create more beautiful celebrations.</p>
+        <form id="reviewForm">
+            <label for="reviewName">Your Name</label>
+            <input type="text" id="reviewName" required placeholder="Enter your name">
+
+            <label for="reviewEvent">Event Attended</label>
+            <select id="reviewEvent" required>
+                <option value="">Choose your event</option>
+                <option>Wedding Celebration</option>
+                <option>Birthday Party</option>
+                <option>Corporate Event</option>
+                <option>College Fest</option>
+                <option>Music Concert</option>
+                <option>Engagement Ceremony</option>
+                <option>Other Event</option>
+            </select>
+
+            <label for="reviewRating">Rate Your Experience</label>
+            <select id="reviewRating" required>
+                <option value="">Select a rating</option>
+                <option value="5">★★★★★ - Excellent</option>
+                <option value="4">★★★★☆ - Very Good</option>
+                <option value="3">★★★☆☆ - Good</option>
+                <option value="2">★★☆☆☆ - Average</option>
+                <option value="1">★☆☆☆☆ - Needs Improvement</option>
+            </select>
+
+            <label for="reviewText">Your Review</label>
+            <textarea id="reviewText" rows="4" required placeholder="Tell us about your EventSphere experience..."></textarea>
+            <button type="submit" class="review-submit">✨ Submit Review</button>
+        </form>
+        <p id="reviewMessage" aria-live="polite"></p>
+        <h3 style="color:#6d3190;margin-top:25px;">💜 Customer Reviews</h3>
+        <div id="reviewList"></div>
+    </section>
+
+    <script>
+        // URK24CS1111
+
+        // Live clock
+        function displayEventClock() {
+            const now = new Date();
+            document.getElementById("clockTime").textContent = now.toLocaleTimeString("en-IN", {
+                hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true
+            });
+            document.getElementById("clockDate").textContent = now.toLocaleDateString("en-IN", {
+                weekday: "long", day: "2-digit", month: "long", year: "numeric"
+            });
+        }
+        displayEventClock();
+        setInterval(displayEventClock, 1000);
+
+        // Background theme buttons
+        function changeEventBackground(colour, themeName) {
+            document.documentElement.style.setProperty("--page-bg", colour);
+            document.body.style.backgroundColor = colour;
+            let dynamicStyle = document.getElementById("dynamic-background-style");
+            if (!dynamicStyle) {
+                dynamicStyle = document.createElement("style");
+                dynamicStyle.id = "dynamic-background-style";
+                document.head.appendChild(dynamicStyle);
+            }
+            dynamicStyle.textContent = `
+                body { background: ${colour} !important; }
+                body::before {
+                    background: ${colour} !important;
+                    background-image: none !important;
+                    animation: none !important;
+                }
+            `;
+            document.getElementById("colorMessage").textContent = "Current theme: " + themeName;
+        }
+
+        // Interactive message hover effect
+        function increaseEventMessage() {
+            const message = document.getElementById("eventMessage");
+            message.style.fontSize = "24px";
+            message.style.color = "#a34c80";
+        }
+        function decreaseEventMessage() {
+            const message = document.getElementById("eventMessage");
+            message.style.fontSize = "19px";
+            message.style.color = "#6d3190";
+        }
+
+        // Flower animation controls
+        let flowerPosition = 0;
+        let flowerDirection = 1;
+        let flowerFrame = null;
+        let flowerRotation = 0;
+        let flowerMode = "move";
+        let previousFrameTime = 0;
+
+        function moveFlower() {
+            flowerMode = "move";
+            startFlowerAnimation();
+            document.getElementById("flowerStatus").textContent = "🌸 Flower is moving across the garden!";
+        }
+        function animateFlower() {
+            flowerMode = "animate";
+            startFlowerAnimation();
+            document.getElementById("flowerStatus").textContent = "✨ Flower is moving, spinning, and dancing!";
+        }
+        function startFlowerAnimation() {
+            if (flowerFrame !== null) return;
+            previousFrameTime = 0;
+            flowerFrame = requestAnimationFrame(updateFlower);
+        }
+        function updateFlower(timestamp) {
+            const flower = document.getElementById("flower");
+            const container = document.getElementById("flowerContainer");
+            if (!flower || !container) {
+                flowerFrame = null;
+                return;
+            }
+            if (!previousFrameTime) previousFrameTime = timestamp;
+            const elapsed = Math.min(timestamp - previousFrameTime, 40);
+            previousFrameTime = timestamp;
+            const maxPosition = Math.max(0, container.clientWidth - flower.offsetWidth);
+            const speed = flowerMode === "animate" ? 0.16 : 0.10;
+            flowerPosition += flowerDirection * elapsed * speed;
+            if (flowerPosition >= maxPosition) {
+                flowerPosition = maxPosition;
+                flowerDirection = -1;
+            } else if (flowerPosition <= 0) {
+                flowerPosition = 0;
+                flowerDirection = 1;
+            }
+            if (flowerMode === "animate") {
+                flowerRotation += elapsed * 0.18;
+                flower.style.transform = "rotate(" + flowerRotation + "deg) scale(1.12)";
+            } else {
+                flower.style.transform = "rotate(" + (flowerRotation % 360) + "deg)";
+            }
+            flower.style.left = flowerPosition + "px";
+            flowerFrame = requestAnimationFrame(updateFlower);
+        }
+        function stopFlower() {
+            if (flowerFrame !== null) {
+                cancelAnimationFrame(flowerFrame);
+                flowerFrame = null;
+            }
+            previousFrameTime = 0;
+            document.getElementById("flowerStatus").textContent = "⏸ Flower animation stopped.";
+        }
+        function resetFlower() {
+            stopFlower();
+            flowerPosition = 0;
+            flowerDirection = 1;
+            flowerRotation = 0;
+            flowerMode = "move";
+            const flower = document.getElementById("flower");
+            flower.style.left = "0px";
+            flower.style.transform = "rotate(0deg) scale(1)";
+            document.getElementById("flowerStatus").textContent = "↩ Flower reset. Click Move or Animate to begin!";
+        }
+
+        // Sample EventSphere team details: replace with your real contacts.
+        const eventTeam = [
+            {name:"Roshini",role:"Event Coordinator",icon:"👑",phone:"+91 90000 00001",email:"roshini@example.com"},
+            {name:"John",role:"Wedding Planner",icon:"💍",phone:"+91 90000 00002",email:"john@example.com"},
+            {name:"Priya",role:"Decoration Designer",icon:"🎨",phone:"+91 90000 00003",email:"priya@example.com"},
+            {name:"David",role:"Photography Director",icon:"📸",phone:"+91 90000 00004",email:"david@example.com"},
+            {name:"Sarah",role:"Catering Manager",icon:"🍽️",phone:"+91 90000 00005",email:"sarah@example.com"},
+            {name:"Daniel",role:"Music & Entertainment",icon:"🎵",phone:"+91 90000 00006",email:"daniel@example.com"},
+            {name:"Emily",role:"Budget & Packages Manager",icon:"💰",phone:"+91 90000 00007",email:"emily@example.com"},
+            {name:"Michael",role:"Guest Relations Manager",icon:"🤝",phone:"+91 90000 00008",email:"michael@example.com"},
+            {name:"Olivia",role:"Logistics Manager",icon:"🚚",phone:"+91 90000 00009",email:"olivia@example.com"},
+            {name:"Sophia",role:"Stage & Lighting Manager",icon:"💡",phone:"+91 90000 00010",email:"sophia@example.com"},
+            {name:"James",role:"Marketing Manager",icon:"📣",phone:"+91 90000 00011",email:"james@example.com"},
+            {name:"Emily Rose",role:"Guest Experience Manager",icon:"🤝",phone:"+91 90000 00012",email:"emilyrose@example.com"}
+        ];
+        const teamContainer = document.getElementById("teamMembers");
+        eventTeam.forEach(member => {
+            const card = document.createElement("article");
+            card.className = "team-card";
+            const icon = document.createElement("div");
+            icon.className = "team-icon";
+            icon.textContent = member.icon;
+            const name = document.createElement("h3");
+            name.textContent = member.name;
+            const role = document.createElement("span");
+            role.className = "team-role";
+            role.textContent = member.role;
+            const contact = document.createElement("div");
+            contact.className = "team-contact";
+            const phoneLine = document.createElement("div");
+            phoneLine.append("📞 ");
+            const phoneLink = document.createElement("a");
+            phoneLink.href = "tel:" + member.phone.replace(/\s/g, "");
+            phoneLink.textContent = member.phone;
+            phoneLine.appendChild(phoneLink);
+            const emailLine = document.createElement("div");
+            emailLine.append("✉️ ");
+            const emailLink = document.createElement("a");
+            emailLink.href = "mailto:" + member.email;
+            emailLink.textContent = member.email;
+            emailLine.appendChild(emailLink);
+            contact.append(phoneLine, emailLine);
+            card.append(icon, name, role, contact);
+            teamContainer.appendChild(card);
+        });
+
+        // Reviews are added to this page only; no database is connected.
+        document.getElementById("reviewForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const name = document.getElementById("reviewName").value.trim();
+            const eventName = document.getElementById("reviewEvent").value;
+            const rating = Number(document.getElementById("reviewRating").value);
+            const review = document.getElementById("reviewText").value.trim();
+            if (!name || !eventName || !rating || !review) {
+                document.getElementById("reviewMessage").textContent = "Please complete all review fields.";
+                return;
+            }
+            const card = document.createElement("article");
+            card.className = "review-card";
+            const reviewer = document.createElement("h3");
+            reviewer.textContent = name;
+            const stars = document.createElement("div");
+            stars.className = "review-stars";
+            stars.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
+            const category = document.createElement("p");
+            category.textContent = "Event: " + eventName;
+            const reviewText = document.createElement("p");
+            reviewText.textContent = review;
+            card.append(reviewer, stars, category, reviewText);
+            document.getElementById("reviewList").prepend(card);
+            document.getElementById("reviewMessage").textContent = "Thank you, " + name + "! Your review has been added.";
+            document.getElementById("reviewForm").reset();
+        });
+
+        // Show/hide the custom package fields in the existing registration form.
+        const packageSelect = document.getElementById("package");
+        const customPriceBox = document.getElementById("customPriceBox");
+        const customPrice = document.getElementById("customPrice");
+        if (packageSelect && customPriceBox && customPrice) {
+            function updateCustomPackage() {
+                const isCustom = packageSelect.value === "Custom";
+                customPriceBox.style.display = isCustom ? "block" : "none";
+                customPrice.required = isCustom;
+            }
+            packageSelect.addEventListener("change", updateCustomPackage);
+            updateCustomPackage();
+        }
+    </script>
+
+
+    <script>
+    // URK24CS1111 — Ex.No.07: Working with jQuery
+    $(document).ready(function () {
+        $('#evaluateBudget').on('click', function () {
+            const amount = Number($('#budgetAmount').val());
+            const percentages = [Number($('#rentPercent').val()), Number($('#accessoryPercent').val()), Number($('#emergencyPercent').val()), Number($('#savingPercent').val())];
+            if ($('#budgetAmount').val() === '' || !Number.isFinite(amount) || amount <= 0) { alert('Please enter a total amount greater than zero.'); return; }
+            if (percentages.some(p => !Number.isFinite(p) || p < 0 || p > 100)) { alert('Each percentage must be between 0 and 100.'); return; }
+            const total = percentages.reduce((a,b) => a+b, 0);
+            if (Math.abs(total - 100) > 0.001) { alert('The percentages must add up to exactly 100%.'); return; }
+            const labels = ['Room Rent','Accessories','Emergency','Savings'];
+            const values = percentages.map(p => amount * p / 100);
+            $('#budgetResult').html('<strong>Budget Breakdown</strong><br>' + labels.map((label,i) => label + ' (' + percentages[i] + '%): ₹' + values[i].toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})).join('<br>') + '<br><strong>Total: ₹' + amount.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) + '</strong>');
+        });
+        $('#calculateCake').on('click', function () {
+            const weight = Number($('#cakeWeight').val());
+            if (!Number.isFinite(weight) || weight <= 0) { alert('Please enter a cake weight greater than zero.'); return; }
+            const base = Number($('#cakeType').val()) * weight;
+            const extra = Number($('#cakeEgg').val());
+            const total = base + extra;
+            const message = $('<span>').text($('#cakeMessage').val().trim() || 'No message added').html();
+            $('#cakeResult').html('<strong>Order Summary</strong><br>Cake price: ₹' + base.toFixed(2) + '<br>Eggless charge: ₹' + extra.toFixed(2) + '<br>Message: ' + message + '<br><strong>Total: ₹' + total.toFixed(2) + '</strong>');
+        });
+        function updateEventTheme() {
+            const eventParts = $('#eventTypeTheme').val().split('|');
+            const eventName = eventParts[0];
+            const eventIcon = eventParts[1];
+            const color = $('#eventThemeColor').val();
+            const style = $('#eventDecorStyle').val();
+            const title = $('#eventThemeTitle').val().trim() || 'A Celebration to Remember';
+            const $preview = $('#eventThemePreview');
+            $preview.css('--theme-color', color).removeClass('floral glitter elegant').addClass(style);
+            if (style === 'classic') $preview.css('background', 'linear-gradient(135deg,' + color + ',#b83280)');
+            else $preview.css('background', '');
+            $preview.find('.preview-icon').text(eventIcon);
+            $preview.find('h4').text(title);
+            $preview.find('p').text(eventName);
+            $('#eventThemeResult').text('Theme ready: ' + eventName + ' • ' + $('#eventThemeColor option:selected').text() + ' • ' + $('#eventDecorStyle option:selected').text() + '.');
+        }
+        $('#eventTypeTheme, #eventThemeColor, #eventDecorStyle, #eventThemeTitle').on('input change', updateEventTheme);
+        updateEventTheme();
+    });
+    </script>
+
+</body>
 </html>
